@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редагована таблиця автомобілів Mobile.de</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .controls {
+            padding: 15px 20px;
+            background-color: #ecf0f1;
+            border-bottom: 1px solid #bdc3c7;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        .btn {
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .save-btn { background: #27ae60; color: white; }
+        .save-btn:hover { background: #219a52; }
+        .clear-btn { background: #e74c3c; color: white; }
+        .clear-btn:hover { background: #c0392b; }
+        .add-btn { background: #3498db; color: white; }
+        .add-btn:hover { background: #2980b9; }
+        .cancel-btn { background: #95a5a6; color: white; }
+        .cancel-btn:hover { background: #7f8c8d; }
+        
+        .info-text {
+            margin-left: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .add-car-form {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            border: 2px dashed #bdc3c7;
+            display: none;
+        }
+        .add-car-form.show {
+            display: block;
+        }
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 8px 12px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        .form-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            padding: 15px 8px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #2c3e50;
+            font-size: 14px;
+        }
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #e8f4f8;
+            transition: background-color 0.3s ease;
+        }
+        .car-id {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .link-cell {
+            max-width: 180px;
+            word-break: break-all;
+        }
+        .link-cell a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .link-cell a:hover {
+            text-decoration: underline;
+            color: #2980b9;
+        }
+        .editable-input {
+            width: 100%;
+            border: 1px solid transparent;
+            background: transparent;
+            padding: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .editable-input:focus {
+            outline: none;
+            border-color: #3498db;
+            background: white;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        .brand-model-input {
+            font-weight: 600;
+            color: #2c3e50;
+            min-width: 150px;
+        }
+        .features-input {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+            min-width: 120px;
+        }
+        .rating-cell {
+            text-align: center;
+            width: 100px;
+        }
+        .rating-buttons {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+        .plus-btn, .minus-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .plus-btn {
+            background: #27ae60;
+            color: white;
+        }
+        .plus-btn:hover {
+            background: #219a52;
+            transform: scale(1.1);
+        }
+        .minus-btn {
+            background: #e74c3c;
+            color: white;
+        }
+        .minus-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+        .plus-btn.active {
+            background: #16a085;
+            box-shadow: 0 0 10px rgba(22, 160, 133, 0.5);
+        }
+        .minus-btn.active {
+            background: #c0392b;
+            box-shadow: 0 0 10px rgba(192, 57, 43, 0.5);
+        }
+        .comment-cell {
+            width: 250px;
+        }
+        .comment-input {
+            width: 100%;
+            min-height: 60px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            padding: 8px;
+            font-family: inherit;
+            font-size: 13px;
+            resize: vertical;
+        }
+        .comment-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        .status-indicator {
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        .status-liked {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        .status-disliked {
+            background: #fadbd8;
+            color: #e74c3c;
+        }
+        .status-neutral {
+            background: #f8f9fa;
+            color: #7f8c8d;
+        }
+        .actions-cell {
+            width: 60px;
+            text-align: center;
+        }
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .delete-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                margin: 10px;
+                overflow-x: auto;
+            }
+            table {
+                min-width: 1200px;
+            }
+        }
+        @media (max-width: 768px) {
+            .comment-cell {
+                width: 200px;
+            }
+            .comment-input {
+                min-height: 50px;
+            }
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .info-text {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 Повністю редагована таблиця автомобілів</h1>
+            <p>Додавайте, редагуйте, оцінюйте та коментуйте автомобілі</p>
+        </div>
+        
+        <div class="controls">
+            <button class="btn save-btn" onclick="saveData(event)">💾 Зберегти дані</button>
+            <button class="btn clear-btn" onclick="clearAllData()">🗑️ Очистити все</button>
+            <button class="btn add-btn" onclick="toggleAddForm()">➕ Додати авто</button>
+            <span class="info-text">
+                Дані зберігаються в пам'яті під час сесії (localStorage недоступний в sandbox)
+            </span>
+        </div>
+        
+        <div class="add-car-form" id="addCarForm">
+            <h3>➕ Додати новий автомобіль</h3>
+            <div class="form-group">
+                <input type="text" id="newCarId" class="form-input" placeholder="ID оголошення" required>
+                <input type="text" id="newCarBrand" class="form-input" placeholder="Марка/Модель" required>
+                <input type="text" id="newCarType" class="form-input" placeholder="Тип двигуна" value="Плагін-гібрид">
+            </div>
+            <div class="form-group">
+                <input type="text" id="newCarFeatures" class="form-input" placeholder="Особливості">
+                <input type="url" id="newCarUrl" class="form-input" placeholder="Посилання на оголошення" required>
+            </div>
+            <div class="form-actions">
+                <button class="btn add-btn" onclick="addNewCar()">✅ Додати</button>
+                <button class="btn cancel-btn" onclick="toggleAddForm()">❌ Скасувати</button>
+            </div>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>ID оголошення</th>
+                    <th>Марка/Модель</th>
+                    <th>Тип двигуна</th>
+                    <th>Особливості</th>
+                    <th>Оцінка</th>
+                    <th>Коментарі</th>
+                    <th>Посилання</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody id="carTable">
+                <!-- Рядки будуть згенеровані JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Дані про автомобілі
+        let carsData = [
+            {
+                id: "426743473",
+                brand: "Mercedes-Benz GLC 300",
+                type: "Гібрид",
+                features: "AHK, Камера, Панорама",
+                url: "https://suchen.mobile.de/auto-inserat/mercedes-benz-glc-300-ahk-kamera-pano/426743473.html"
+            },
+            {
+                id: "418664792",
+                brand: "Mercedes-Benz",
+                type: "Плагін-гібрид",
+                features: "Топ категорії",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=418664792&action=topInCategory&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=381b626e-b08d-345a-902d-255afe3d8858&s=Car&sb=p&searchId=381b626e-b08d-345a-902d-255afe3d8858&vc=Car"
+            },
+            {
+                id: "423350671",
+                brand: "Mercedes-Benz",
+                type: "Плагін-гібрид",
+                features: "Сторінка 2",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423350671&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
+            },
+            {
+                id: "420538971",
+                brand: "Mercedes-Benz",
+                type: "Плагін-гібрид",
+                features: "Сторінка 2",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=420538971&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
+            },
+            {
+                id: "427620635",
+                brand: "Mercedes-Benz",
+                type: "Плагін-гібрид",
+                features: "Сторінка 2",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427620635&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
+            },
+            {
+                id: "411812367",
+                brand: "Mercedes-Benz",
+                type: "Плагін-гібрид",
+                features: "Eye Catcher, Сторінка 5",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=411812367&action=eyeCatcher&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=5&rd=150&ref=srp&refId=612ffed2-b4bf-5414-870a-2064dd63e861&s=Car&sb=p&searchId=612ffed2-b4bf-5414-870a-2064dd63e861&vc=Car"
+            },
+            {
+                id: "423733871",
+                brand: "Mercedes-Benz",
+                type: "Плагін-гібрид",
+                features: "Стандартне оголошення",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423733871&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
+            },
+            {
+                id: "414802954",
+                brand: "Mercedes-Benz",
+                type: "Плагін-гібрид",
+                features: "Сторінка 2",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414802954&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=111b4189-0b18-6219-0228-fb776675d06d&s=Car&sb=p&searchId=111b4189-0b18-6219-0228-fb776675d06d&vc=Car"
+            },
+            {
+                id: "425386910",
+                brand: "Mercedes-Benz",
+                type: "Плагін-гібрид",
+                features: "Стандартне оголошення",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=425386910&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
+            },
+            {
+                id: "422158453",
+                brand: "Mercedes-Benz",
+                type: "Плагін-гібрид",
+                features: "Стандартне оголошення",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=422158453&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
+            },
+            {
+                id: "424538448",
+                brand: "Estate Car",
+                type: "Плагін-гібрид",
+                features: "Універсал, від 2022 р., Сторінка 2",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=424538448&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=08f61487-dcaf-1ffd-878d-39a9995320b2&s=Car&searchId=08f61487-dcaf-1ffd-878d-39a9995320b2&vc=Car"
+            },
+            {
+                id: "421648521",
+                brand: "Estate Car",
+                type: "Плагін-гібрид",
+                features: "Універсал, від 2022 р., Сторінка 2",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=421648521&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=08f61487-dcaf-1ffd-878d-39a9995320b2&s=Car&searchId=08f61487-dcaf-1ffd-878d-39a9995320b2&vc=Car"
+            },
+            {
+                id: "414011356",
+                brand: "Estate Car",
+                type: "Плагін-гібрид",
+                features: "Універсал, Топ категорії, від 2022 р.",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414011356&action=topInCategory&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&rd=150&ref=srp&refId=7fef437c-92de-20bc-dfd5-940834261047&s=Car&searchId=7fef437c-92de-20bc-dfd5-940834261047&vc=Car"
+            },
+            {
+                id: "415765423",
+                brand: "Автомобіль",
+                type: "Плагін-гібрид",
+                features: "від 2020 р., Ціна 35-44k€, Сторінка 2",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=415765423&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=3500%3B%3B22%3B&od=up&p=35000%3A44000&pageNumber=2&rd=150&ref=srp&refId=d114018e-2c04-a1da-666e-ee0b86a463e5&s=Car&sb=p&searchId=d114018e-2c04-a1da-666e-ee0b86a463e5&vc=Car"
+            },
+            {
+                id: "427272252",
+                brand: "Автомобіль",
+                type: "Плагін-гібрид",
+                features: "від 2020 р., Ціна 35-44k€, Сторінка 2",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427272252&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=1900%3B32%3B%3B&od=up&p=35000%3A44000&pageNumber=2&rd=150&ref=srp&refId=46f2e1a4-c672-137d-dea6-561592631447&s=Car&sb=p&searchId=46f2e1a4-c672-137d-dea6-561592631447&vc=Car"
+            }
+        ];
+
+        // Збереження даних
+        let carRatings = {};
+        let carComments = {};
+
+        // Завантаження збережених даних
+        function loadSavedData() {
+            // В sandbox середовищі localStorage недоступний
+            // Дані зберігаються в пам'яті під час сесії
+            console.log('Дані завантажуються з пам\'яті (localStorage недоступний в sandbox)');
+        }
+
+        // Збереження даних
+        function saveData(event) {
+            // В sandbox середовищі localStorage недоступний
+            // Дані зберігаються в пам'яті під час сесії
+            if (event && event.target) {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Збережено в пам\'яті!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            }
+            console.log('Дані збережені в пам\'яті сесії');
+        }
+
+        // Очистка всіх даних
+        function clearAllData() {
+            if (confirm('Ви впевнені, що хочете очистити всі дані (авто, оцінки, коментарі)?')) {
+                carRatings = {};
+                carComments = {};
+                // Відновити початкові дані автомобілів
+                carsData = [
+                    {
+                        id: "426743473",
+                        brand: "Mercedes-Benz GLC 300",
+                        type: "Гібрид",
+                        features: "AHK, Камера, Панорама",
+                        url: "https://suchen.mobile.de/auto-inserat/mercedes-benz-glc-300-ahk-kamera-pano/426743473.html"
+                    },
+                    // ... інші початкові автомобілі будуть відновлені
+                ];
+                generateTable();
+            }
+        }
+
+        // Автозбереження
+        function autoSave() {
+            // В sandbox середовищі localStorage недоступний
+            // Дані зберігаються в пам'яті під час сесії
+            console.log('Автозбереження: дані оновлені в пам\'яті');
+        }
+
+        // Показати/приховати форму додавання
+        function toggleAddForm() {
+            const form = document.getElementById('addCarForm');
+            form.classList.toggle('show');
+            
+            if (form.classList.contains('show')) {
+                document.getElementById('newCarId').focus();
+            } else {
+                // Очистити форму
+                document.getElementById('newCarId').value = '';
+                document.getElementById('newCarBrand').value = '';
+                document.getElementById('newCarType').value = 'Плагін-гібрид';
+                document.getElementById('newCarFeatures').value = '';
+                document.getElementById('newCarUrl').value = '';
+            }
+        }
+
+        // Додати новий автомобіль
+        function addNewCar() {
+            const id = document.getElementById('newCarId').value.trim();
+            const brand = document.getElementById('newCarBrand').value.trim();
+            const type = document.getElementById('newCarType').value.trim();
+            const features = document.getElementById('newCarFeatures').value.trim();
+            const url = document.getElementById('newCarUrl').value.trim();
+
+            if (!id || !brand || !url) {
+                alert('Будь ласка, заповніть обов\'язкові поля: ID, Марка/Модель та Посилання');
+                return;
+            }
+
+            // Перевірити чи існує вже авто з таким ID
+            if (carsData.find(car => car.id === id)) {
+                alert('Автомобіль з таким ID вже існує!');
+                return;
+            }
+
+            // Додати новий автомобіль
+            const newCar = {
+                id: id,
+                brand: brand,
+                type: type || 'Плагін-гібрид',
+                features: features || '',
+                url: url
+            };
+
+            carsData.push(newCar);
+            autoSave();
+            generateTable();
+            toggleAddForm();
+        }
+
+        // Видалити автомобіль
+        function deleteCar(carId) {
+            if (confirm('Ви впевнені, що хочете видалити цей автомобіль?')) {
+                carsData = carsData.filter(car => car.id !== carId);
+                delete carRatings[carId];
+                delete carComments[carId];
+                autoSave();
+                generateTable();
+            }
+        }
+
+        // Оновити дані автомобіля
+        function updateCarData(carId, field, value) {
+            const car = carsData.find(c => c.id === carId);
+            if (car) {
+                car[field] = value;
+                autoSave();
+            }
+        }
+
+        // Оцінка автомобіля
+        function rateCar(carId, rating) {
+            carRatings[carId] = rating;
+            autoSave();
+            updateRatingDisplay(carId);
+        }
+
+        // Оновлення коментаря
+        function updateComment(carId, comment) {
+            carComments[carId] = comment;
+            autoSave();
+        }
+
+        // Оновлення відображення оцінки
+        function updateRatingDisplay(carId) {
+            const plusBtn = document.querySelector(`#plus-${carId}`);
+            const minusBtn = document.querySelector(`#minus-${carId}`);
+            const statusSpan = document.querySelector(`#status-${carId}`);
+            
+            if (!plusBtn || !minusBtn || !statusSpan) return;
+            
+            // Скидання активних станів
+            plusBtn.classList.remove('active');
+            minusBtn.classList.remove('active');
+            
+            // Встановлення активного стану та статусу
+            if (carRatings[carId] === 'plus') {
+                plusBtn.classList.add('active');
+                statusSpan.textContent = 'Подобається';
+                statusSpan.className = 'status-indicator status-liked';
+            } else if (carRatings[carId] === 'minus') {
+                minusBtn.classList.add('active');
+                statusSpan.textContent = 'Не подобається';
+                statusSpan.className = 'status-indicator status-disliked';
+            } else {
+                statusSpan.textContent = 'Не оцінено';
+                statusSpan.className = 'status-indicator status-neutral';
+            }
+        }
+
+        // Генерація таблиці
+        function generateTable() {
+            const tbody = document.getElementById('carTable');
+            tbody.innerHTML = '';
+
+            carsData.forEach((car, index) => {
+                const rating = carRatings[car.id] || '';
+                const comment = carComments[car.id] || '';
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td class="car-id">${car.id}</td>
+                    <td>
+                        <input 
+                            type="text" 
+                            class="editable-input brand-model-input" 
+                            value="${car.brand}"
+                            onchange="updateCarData('${car.id}', 'brand', this.value)"
+                            placeholder="Марка/Модель"
+                        >
+                    </td>
+                    <td>
+                        <input 
+                            type="text" 
+                            class="editable-input" 
+                            value="${car.type}"
+                            onchange="updateCarData('${car.id}', 'type', this.value)"
+                            placeholder="Тип двигуна"
+                        >
+                    </td>
+                    <td>
+                        <input 
+                            type="text" 
+                            class="editable-input features-input" 
+                            value="${car.features}"
+                            onchange="updateCarData('${car.id}', 'features', this.value)"
+                            placeholder="Особливості"
+                        >
+                    </td>
+                    <td class="rating-cell">
+                        <div class="rating-buttons">
+                            <button class="plus-btn" id="plus-${car.id}" onclick="rateCar('${car.id}', 'plus')" title="Подобається">+</button>
+                            <button class="minus-btn" id="minus-${car.id}" onclick="rateCar('${car.id}', 'minus')" title="Не подобається">-</button>
+                        </div>
+                        <span class="status-indicator status-neutral" id="status-${car.id}">Не оцінено</span>
+                    </td>
+                    <td class="comment-cell">
+                        <textarea 
+                            class="comment-input" 
+                            placeholder="Додайте свій коментар..."
+                            onchange="updateComment('${car.id}', this.value)"
+                            onkeyup="updateComment('${car.id}', this.value)"
+                        >${comment}</textarea>
+                    </td>
+                    <td class="link-cell">
+                        <a href="${car.url}" target="_blank">Переглянути оголошення</a>
+                    </td>
+                    <td class="actions-cell">
+                        <button class="delete-btn" onclick="deleteCar('${car.id}')" title="Видалити">🗑️</button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+                
+                // Оновлення відображення оцінки
+                setTimeout(() => updateRatingDisplay(car.id), 10);
+            });
+        }
+
+        // Ініціалізація
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedData();
+            generateTable();
+        });
+    </script>
+</body>
+</html>

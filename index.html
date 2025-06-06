@@ -1,575 +1,9 @@
-<script>
-        // Дані про автомобілі
-        let carsData = [
-            {
-                id: "426743473",
-                brand: "Mercedes-Benz GLC 300",
-                type: "Гібрид",
-                features: "AHK, Камера, Панорама",
-                url: "https://suchen.mobile.de/auto-inserat/mercedes-benz-glc-300-ahk-kamera-pano/426743473.html"
-            },
-            {
-                id: "418664792",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Топ категорії",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=418664792&action=topInCategory&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=381b626e-b08d-345a-902d-255afe3d8858&s=Car&sb=p&searchId=381b626e-b08d-345a-902d-255afe3d8858&vc=Car"
-            },
-            {
-                id: "423350671",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423350671&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
-            },
-            {
-                id: "420538971",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=420538971&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
-            },
-            {
-                id: "427620635",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427620635&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
-            },
-            {
-                id: "411812367",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Eye Catcher, Сторінка 5",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=411812367&action=eyeCatcher&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=5&rd=150&ref=srp&refId=612ffed2-b4bf-5414-870a-2064dd63e861&s=Car&sb=p&searchId=612ffed2-b4bf-5414-870a-2064dd63e861&vc=Car"
-            },
-            {
-                id: "423733871",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Стандартне оголошення",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423733871&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
-            },
-            {
-                id: "414802954",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414802954&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=111b4189-0b18-6219-0228-fb776675d06d&s=Car&sb=p&searchId=111b4189-0b18-6219-0228-fb776675d06d&vc=Car"
-            },
-            {
-                id: "425386910",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Стандартне оголошення",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=425386910&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
-            },
-            {
-                id: "422158453",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Стандартне оголошення",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=422158453&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
-            },
-            {
-                id: "424538448",
-                brand: "Estate Car",
-                type: "Плагін-гібрид",
-                features: "Універсал, від 2022 р., Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=424538448&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=08f61487-dcaf-1ffd-878d-39a9995320b2&s=Car&searchId=08f61487-dcaf-1ffd-878d-39a9995320b2&vc=Car"
-            },
-            {
-                id: "421648521",
-                brand: "Estate Car",
-                type: "Плагін-гібрид",
-                features: "Універсал, від 2022 р., Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=421648521&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=08f61487-dcaf-1ffd-878d-39a9995320b2&s=Car&searchId=08f61487-dcaf-1ffd-878d-39a9995320b2&vc=Car"
-            },
-            {
-                id: "414011356",
-                brand: "Estate Car",
-                type: "Плагін-гібрид",
-                features: "Універсал, Топ категорії, від 2022 р.",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414011356&action=topInCategory&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&rd=150&ref=srp&refId=7fef437c-92de-20bc-dfd5-940834261047&s=Car&searchId=7fef437c-92de-20bc-dfd5-940834261047&vc=Car"
-            },
-            {
-                id: "415765423",
-                brand: "Автомобіль",
-                type: "Плагін-гібрид",
-                features: "від 2020 р., Ціна 35-44k€, Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=415765423&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=3500%3B%3B22%3B&od=up&p=35000%3A44000&pageNumber=2&rd=150&ref=srp&refId=d114018e-2c04-a1da-666e-ee0b86a463e5&s=Car&sb=p&searchId=d114018e-2c04-a1da-666e-ee0b86a463e5&vc=Car"
-            },
-            {
-                id: "427272252",
-                brand: "Автомобіль",
-                type: "Плагін-гібрид",
-                features: "від 2020 р., Ціна 35-44k€, Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427272252&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=1900%3B32%3B%3B&od=up&p=35000%3A44000&pageNumber=2&rd=150&ref=srp&refId=46f2e1a4-c672-137d-dea6-561592631447&s=Car&sb=p&searchId=46f2e1a4-c672-137d-dea6-561592631447&vc=Car"
-            }
-        ];
-
-        // Збереження даних
-        let carRatings = {};
-        let carComments = {};
-        let isFirebaseReady = false;
-
-        // Чекаємо завантаження Firebase
-        function waitForFirebase() {
-            return new Promise((resolve) => {
-                const checkFirebase = () => {
-                    if (window.firebaseLoaded && window.db) {
-                        isFirebaseReady = true;
-                        resolve();
-                    } else {
-                        setTimeout(checkFirebase, 100);
-                    }
-                };
-                checkFirebase();
-            });
-        }
-
-        // Firebase функції
-        async function syncToCloud() {
-            if (!isFirebaseReady) return;
-            
-            try {
-                const dataToSync = {
-                    carsData: carsData,
-                    carRatings: carRatings,
-                    carComments: carComments,
-                    lastUpdated: new Date().toISOString()
-                };
-
-                await window.setDoc(window.doc(window.db, 'carTable', 'data'), dataToSync);
-                
-                document.getElementById('syncStatus').innerHTML = '<span class="sync-online">✅ Синхронізовано з хмарою</span>';
-                console.log('Дані синхронізовані з Firebase');
-            } catch (error) {
-                console.error('Помилка синхронізації:', error);
-                document.getElementById('syncStatus').innerHTML = '<span class="sync-offline">❌ Помилка синхронізації</span>';
-            }
-        }
-
-        async function loadFromCloud() {
-            if (!isFirebaseReady) return;
-            
-            try {
-                const docRef = window.doc(window.db, 'carTable', 'data');
-                const docSnap = await window.getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    if (data.carsData) carsData = data.carsData;
-                    if (data.carRatings) carRatings = data.carRatings;
-                    if (data.carComments) carComments = data.carComments;
-                    
-                    generateTable();
-                    console.log('Дані завантажені з Firebase');
-                }
-            } catch (error) {
-                console.error('Помилка завантаження:', error);
-            }
-        }
-
-        // Реального часу синхронізація
-        function setupRealtimeSync() {
-            if (!isFirebaseReady) return;
-            
-            const docRef = window.doc(window.db, 'carTable', 'data');
-            window.onSnapshot(docRef, (doc) => {
-                if (doc.exists()) {
-                    const data = doc.data();
-                    if (data.carsData) carsData = data.carsData;
-                    if (data.carRatings) carRatings = data.carRatings;
-                    if (data.carComments) carComments = data.carComments;
-                    
-                    generateTable();
-                    document.getElementById('syncStatus').innerHTML = '<span class="sync-online">🔄 Оновлено з хмари</span>';
-                    
-                    setTimeout(() => {
-                        document.getElementById('syncStatus').innerHTML = '<span class="sync-online">✅ Синхронізовано</span>';
-                    }, 2000);
-                }
-            });
-        }
-
-        // Локальне збереження як fallback
-        function saveToLocal() {
-            try {
-                localStorage.setItem('carRatings', JSON.stringify(carRatings));
-                localStorage.setItem('carComments', JSON.stringify(carComments));
-                localStorage.setItem('carsData', JSON.stringify(carsData));
-            } catch (error) {
-                console.error('Помилка localStorage:', error);
-            }
-        }
-
-        function loadFromLocal() {
-            try {
-                const savedRatings = localStorage.getItem('carRatings');
-                const savedComments = localStorage.getItem('carComments');
-                const savedCars = localStorage.getItem('carsData');
-                
-                if (savedRatings) carRatings = JSON.parse(savedRatings);
-                if (savedComments) carComments = JSON.parse(savedComments);
-                if (savedCars) carsData = JSON.parse(savedCars);
-            } catch (error) {
-                console.error('Помилка завантаження localStorage:', error);
-            }
-        }
-
-        // Автозбереження
-        async function autoSave() {
-            saveToLocal(); // Завжди зберігаємо локально
-            if (isFirebaseReady) {
-                await syncToCloud(); // І в хмару якщо можна
-            }
-        }
-
-        // Примусова синхронізація
-        async function forceSyncToCloud() {
-            document.getElementById('syncStatus').innerHTML = '<span class="sync-syncing">🔄 Синхронізація...</span>';
-            await syncToCloud();
-        }
-
-        // Завантаження збережених даних
-        async function loadSavedData() {
-            loadFromLocal(); // Спочатку локально
-            
-            await waitForFirebase(); // Чекаємо Firebase
-            await loadFromCloud(); // Потім з хмари
-            setupRealtimeSync(); // Налаштовуємо real-time
-        }
-
-        // Збереження даних
-        async function saveData(event) {
-            await autoSave();
-            
-            if (event && event.target) {
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = '✅ Збережено!';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
-            }
-        }
-
-        // Очистка всіх даних
-        async function clearAllData() {
-            if (confirm('Ви впевнені, що хочете очистити всі дані (авто, оцінки, коментарі)?')) {
-                carRatings = {};
-                carComments = {};
-                localStorage.removeItem('carRatings');
-                localStorage.removeItem('carComments');
-                localStorage.removeItem('carsData');
-                
-                if (isFirebaseReady) {
-                    try {
-                        await window.deleteDoc(window.doc(window.db, 'carTable', 'data'));
-                    } catch (error) {
-                        console.error('Помилка очищення Firebase:', error);
-                    }
-                }
-                
-                location.reload();
-            }
-        }
-
-        // Експорт даних
-        function exportData() {
-            const exportData = {
-                carsData: carsData,
-                carRatings: carRatings,
-                carComments: carComments,
-                exportDate: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(exportData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(dataBlob);
-            link.download = `car-table-backup-${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-        }
-
-        // Імпорт даних
-        function importData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            
-            input.onchange = async function(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-                
-                const reader = new FileReader();
-                reader.onload = async function(e) {
-                    try {
-                        const imported = JSON.parse(e.target.result);
-                        
-                        if (imported.carsData) carsData = imported.carsData;
-                        if (imported.carRatings) carRatings = imported.carRatings;
-                        if (imported.carComments) carComments = imported.carComments;
-                        
-                        await autoSave();
-                        generateTable();
-                        alert('Дані успішно імпортовано та синхронізовано!');
-                    } catch (error) {
-                        alert('Помилка при імпорті файлу');
-                        console.error('Import error:', error);
-                    }
-                };
-                reader.readAsText(file);
-            };
-            
-            input.click();
-        }
-
-        // Показати/приховати форму додавання
-        function toggleAddForm() {
-            const form = document.getElementById('addCarForm');
-            form.classList.toggle('show');
-            
-            if (form.classList.contains('show')) {
-                document.getElementById('newCarId').focus();
-            } else {
-                // Очистити форму
-                document.getElementById('newCarId').value = '';
-                document.getElementById('newCarBrand').value = '';
-                document.getElementById('newCarType').value = 'Плагін-гібрид';
-                document.getElementById('newCarFeatures').value = '';
-                document.getElementById('newCarUrl').value = '';
-            }
-        }
-
-        // Додати новий автомобіль
-        async function addNewCar() {
-            const id = document.getElementById('newCarId').value.trim();
-            const brand = document.getElementById('newCarBrand').value.trim();
-            const type = document.getElementById('newCarType').value.trim();
-            const features = document.getElementById('newCarFeatures').value.trim();
-            const url = document.getElementById('newCarUrl').value.trim();
-
-            if (!id || !brand || !url) {
-                alert('Будь ласка, заповніть обов\'язкові поля: ID, Марка/Модель та Посилання');
-                return;
-            }
-
-            // Перевірити чи існує вже авто з таким ID
-            if (carsData.find(car => car.id === id)) {
-                alert('Автомобіль з таким ID вже існує!');
-                return;
-            }
-
-            // Додати новий автомобіль
-            const newCar = {
-                id: id,
-                brand: brand,
-                type: type || 'Плагін-гібрид',
-                features: features || '',
-                url: url
-            };
-
-            carsData.push(newCar);
-            await autoSave();
-            generateTable();
-            toggleAddForm();
-        }
-
-        // Видалити автомобіль
-        async function deleteCar(carId) {
-            if (confirm('Ви впевнені, що хочете видалити цей автомобіль?')) {
-                carsData = carsData.filter(car => car.id !== carId);
-                delete carRatings[carId];
-                delete carComments[carId];
-                await autoSave();
-                generateTable();
-            }
-        }
-
-        // Оновити дані автомобіля
-        async function updateCarData(carId, field, value) {
-            const car = carsData.find(c => c.id === carId);
-            if (car) {
-                car[field] = value;
-                await autoSave();
-            }
-        }
-
-        // Оцінка автомобіля
-        async function rateCar(carId, rating) {
-            carRatings[carId] = rating;
-            await autoSave();
-            updateRatingDisplay(carId);
-        }
-
-        // Оновлення коментаря
-        async function updateComment(carId, comment) {
-            carComments[carId] = comment;
-            await autoSave();
-        }
-
-        // Оновлення відображення оцінки
-        function updateRatingDisplay(carId) {
-            const plusBtn = document.querySelector(`#plus-${carId}`);
-            const minusBtn = document.querySelector(`#minus-${carId}`);
-            const statusSpan = document.querySelector(`#status-${carId}`);
-            
-            if (!plusBtn || !minusBtn || !statusSpan) return;
-            
-            // Скидання активних станів
-            plusBtn.classList.remove('active');
-            minusBtn.classList.remove('active');
-            
-            // Встановлення активного стану та статусу
-            if (carRatings[carId] === 'plus') {
-                plusBtn.classList.add('active');
-                statusSpan.textContent = 'Подобається';
-                statusSpan.className = 'status-indicator status-liked';
-            } else if (carRatings[carId] === 'minus') {
-                minusBtn.classList.add('active');
-                statusSpan.textContent = 'Не подобається';
-                statusSpan.className = 'status-indicator status-disliked';
-            } else {
-                statusSpan.textContent = 'Не оцінено';
-                statusSpan.className = 'status-indicator status-neutral';
-            }
-        }
-
-        // Генерація таблиці
-        function generateTable() {
-            const tbody = document.getElementById('carTable');
-            tbody.innerHTML = '';
-
-            carsData.forEach((car, index) => {
-                const rating = carRatings[car.id] || '';
-                const comment = carComments[car.id] || '';
-
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td class="car-id">${car.id}</td>
-                    <td>
-                        <input 
-                            type="text" 
-                            class="editable-input brand-model-input" 
-                            value="${car.brand}"
-                            onchange="updateCarData('${car.id}', 'brand', this.value)"
-                            placeholder="Марка/Модель"
-                        >
-                    </td>
-                    <td>
-                        <input 
-                            type="text" 
-                            class="editable-input" 
-                            value="${car.type}"
-                            onchange="updateCarData('${car.id}', 'type', this.value)"
-                            placeholder="Тип двигуна"
-                        >
-                    </td>
-                    <td>
-                        <input 
-                            type="text" 
-                            class="editable-input features-input" 
-                            value="${car.features}"
-                            onchange="updateCarData('${car.id}', 'features', this.value)"
-                            placeholder="Особливості"
-                        >
-                    </td>
-                    <td class="rating-cell">
-                        <div class="rating-buttons">
-                            <button class="plus-btn" id="plus-${car.id}" onclick="rateCar('${car.id}', 'plus')" title="Подобається">+</button>
-                            <button class="minus-btn" id="minus-${car.id}" onclick="rateCar('${car.id}', 'minus')" title="Не подобається">-</button>
-                        </div>
-                        <span class="status-indicator status-neutral" id="status-${car.id}">Не оцінено</span>
-                    </td>
-                    <td class="comment-cell">
-                        <textarea 
-                            class="comment-input" 
-                            placeholder="Додайте свій коментар..."
-                            onchange="updateComment('${car.id}', this.value)"
-                            onkeyup="updateComment('${car.id}', this.value)"
-                        >${comment}</textarea>
-                    </td>
-                    <td class="link-cell">
-                        <a href="${car.url}" target="_blank">Переглянути оголошення</a>
-                    </td>
-                    <td class="actions-cell">
-                        <button class="delete-btn" onclick="deleteCar('${car.id}')" title="Видалити">🗑️</button>
-                    </td>
-                
-                tbody.appendChild(row);
-                
-                // Оновлення відображення оцінки
-                setTimeout(() => updateRatingDisplay(car.id), 10);
-            });
-        }
-
-        // Ініціалізація
-        document.addEventListener('DOMContentLoaded', async function() {
-            await loadSavedData();
-            generateTable();
-        });
-    </script>
-</body>
-</html>    <script>
-        // Дані про автомобілі
-        let carsData = [
-            {
-                id: "426743473",
-                brand: "Mercedes-Benz GLC 300",
-                type: "Гібрид",
-                features: "AHK, Камера, Панорама",
-                url: "https://suchen.mobile.de/auto-inserat/mercedes-benz-glc-300-ahk-kamera-pano/426743473.html"
-            },
-            {
-                id: "418664792",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Топ категорії",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=418664792&action=topInCategory&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=381b626e-b08d-345a-902d-255afe3d8858&s=Car&sb=p&searchId=381b626e-b08d-345a-902d-255afe3d8858&vc=Car"
-            },
-            {
-                id: "423350671",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423350671&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
-            },
-            {
-                id: "420538971",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=420538971&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
-            },
-            {
-                id: "427620635",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427620635&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
-            },
-            {
-                id: "411812367",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Eye Catcher, Сторінка 5",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=411812367&action=eyeCatcher&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=5&rd=150&ref=srp&refId=612ffed2-b4bf-5414-870a-2064dd63e861&s=Car&sb=p&searchId=612ffed2-b4bf-5414-870a-2064dd63e861&vc=Car"
-            },
-            {
-                id: "423733871",
-                brand: "Mercedes-Benz",
-                type: "Плагін-гібрид",
-                features: "Стандартне оголошення",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423733871&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редагована таблиця автомобілів Mobile.de</title>
+    <title>Таблиця автомобілів Mobile.de</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -593,22 +27,6 @@
         .header h1 {
             margin: 0;
             font-size: 24px;
-        }
-        .sync-status {
-            padding: 10px 20px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-            text-align: center;
-            font-size: 14px;
-        }
-        .sync-online {
-            color: #28a745;
-        }
-        .sync-offline {
-            color: #dc3545;
-        }
-        .sync-syncing {
-            color: #ffc107;
         }
         .controls {
             padding: 15px 20px;
@@ -877,22 +295,16 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚗 Синхронізована таблиця автомобілів</h1>
-            <p>Автоматична синхронізація між всіма пристроями через Firebase</p>
-        </div>
-        
-        <div class="sync-status" id="syncStatus">
-            <span class="sync-syncing">🔄 Підключення до Firebase...</span>
+            <h1>🚗 Таблиця автомобілів Mobile.de</h1>
+            <p>Ваш персональний помічник у виборі автомобіля</p>
         </div>
         
         <div class="controls">
-            <button class="btn save-btn" onclick="forceSyncToCloud()">☁️ Синхронізувати</button>
+            <button class="btn save-btn" onclick="saveData(event)">💾 Зберегти дані</button>
             <button class="btn clear-btn" onclick="clearAllData()">🗑️ Очистити все</button>
             <button class="btn add-btn" onclick="toggleAddForm()">➕ Додати авто</button>
-            <button class="btn" style="background: #9b59b6; color: white;" onclick="exportData()">📁 Експорт</button>
-            <button class="btn" style="background: #f39c12; color: white;" onclick="importData()">📂 Імпорт</button>
             <span class="info-text">
-                ☁️ Автоматична синхронізація з хмарою
+                💾 Дані зберігаються автоматично в localStorage
             </span>
         </div>
         
@@ -928,48 +340,12 @@
                 </tr>
             </thead>
             <tbody id="carTable">
-                <!-- Рядки будуть згенеровані JavaScript -->
             </tbody>
         </table>
     </div>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Firebase imports
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, doc, setDoc, getDoc, onSnapshot, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-
-        // Firebase конфігурація
-        const firebaseConfig = {
-            apiKey: "AIzaSyDl_ZYOx4rvJqYhz5a3rjFCa0XU0Elx4tA",
-            authDomain: "car-table-app.firebaseapp.com",
-            projectId: "car-table-app",
-            storageBucket: "car-table-app.firebasestorage.app",
-            messagingSenderId: "1089172844020",
-            appId: "1:1089172844020:web:77e5936de00905c1d5dda1"
-        };
-
-        // Ініціалізація Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Глобальні змінні для доступу з HTML
-        window.db = db;
-        window.firebaseLoaded = true;
-        
-        // Firebase функції
-        window.setDoc = setDoc;
-        window.getDoc = getDoc;
-        window.onSnapshot = onSnapshot;
-        window.deleteDoc = deleteDoc;
-        window.doc = doc;
-
-        // Оновити статус підключення
-        document.getElementById('syncStatus').innerHTML = '<span class="sync-online">✅ Підключено до Firebase</span>';
-    </script>
-
     <script>
-        // Дані про автомобілі
+        // Початкові дані автомобілів
         let carsData = [
             {
                 id: "426743473",
@@ -1078,20 +454,23 @@
             }
         ];
 
-        // Збереження даних
+        // Змінні для збереження оцінок та коментарів
         let carRatings = {};
         let carComments = {};
 
-        // Завантаження збережених даних
+        // Функція завантаження збережених даних
         function loadSavedData() {
             try {
                 const savedRatings = localStorage.getItem('carRatings');
                 const savedComments = localStorage.getItem('carComments');
                 const savedCars = localStorage.getItem('carsData');
                 
-                carRatings = savedRatings ? JSON.parse(savedRatings) : {};
-                carComments = savedComments ? JSON.parse(savedComments) : {};
-                
+                if (savedRatings) {
+                    carRatings = JSON.parse(savedRatings);
+                }
+                if (savedComments) {
+                    carComments = JSON.parse(savedComments);
+                }
                 if (savedCars) {
                     carsData = JSON.parse(savedCars);
                 }
@@ -1104,7 +483,7 @@
             }
         }
 
-        // Збереження даних
+        // Функція збереження даних
         function saveData(event) {
             try {
                 localStorage.setItem('carRatings', JSON.stringify(carRatings));
@@ -1119,10 +498,21 @@
                         btn.textContent = originalText;
                     }, 2000);
                 }
-                console.log('Дані успішно збережені в localStorage');
+                console.log('Дані успішно збережені');
             } catch (error) {
                 console.error('Помилка збереження:', error);
                 alert('Не вдалося зберегти дані');
+            }
+        }
+
+        // Автозбереження
+        function autoSave() {
+            try {
+                localStorage.setItem('carRatings', JSON.stringify(carRatings));
+                localStorage.setItem('carComments', JSON.stringify(carComments));
+                localStorage.setItem('carsData', JSON.stringify(carsData));
+            } catch (error) {
+                console.error('Помилка автозбереження:', error);
             }
         }
 
@@ -1134,99 +524,39 @@
                 localStorage.removeItem('carRatings');
                 localStorage.removeItem('carComments');
                 localStorage.removeItem('carsData');
-                
-                // Відновити початкові дані
                 location.reload();
             }
-        }
-
-        // Автозбереження
-        function autoSave() {
-            try {
-                localStorage.setItem('carRatings', JSON.stringify(carRatings));
-                localStorage.setItem('carComments', JSON.stringify(carComments));
-                localStorage.setItem('carsData', JSON.stringify(carsData));
-                console.log('Автозбереження: дані оновлені в localStorage');
-            } catch (error) {
-                console.error('Помилка автозбереження:', error);
-            }
-        }
-
-        // Експорт даних
-        function exportData() {
-            const exportData = {
-                carsData: carsData,
-                carRatings: carRatings,
-                carComments: carComments,
-                exportDate: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(exportData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(dataBlob);
-            link.download = `car-table-backup-${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-        }
-
-        // Імпорт даних
-        function importData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            
-            input.onchange = function(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const imported = JSON.parse(e.target.result);
-                        
-                        if (imported.carsData) carsData = imported.carsData;
-                        if (imported.carRatings) carRatings = imported.carRatings;
-                        if (imported.carComments) carComments = imported.carComments;
-                        
-                        autoSave();
-                        generateTable();
-                        alert('Дані успішно імпортовано!');
-                    } catch (error) {
-                        alert('Помилка при імпорті файлу');
-                        console.error('Import error:', error);
-                    }
-                };
-                reader.readAsText(file);
-            };
-            
-            input.click();
         }
 
         // Показати/приховати форму додавання
         function toggleAddForm() {
             const form = document.getElementById('addCarForm');
-            form.classList.toggle('show');
-            
-            if (form.classList.contains('show')) {
-                document.getElementById('newCarId').focus();
-            } else {
-                // Очистити форму
-                document.getElementById('newCarId').value = '';
-                document.getElementById('newCarBrand').value = '';
-                document.getElementById('newCarType').value = 'Плагін-гібрид';
-                document.getElementById('newCarFeatures').value = '';
-                document.getElementById('newCarUrl').value = '';
+            if (form) {
+                form.classList.toggle('show');
+                
+                if (form.classList.contains('show')) {
+                    const idInput = document.getElementById('newCarId');
+                    if (idInput) idInput.focus();
+                } else {
+                    // Очистити форму
+                    const inputs = ['newCarId', 'newCarBrand', 'newCarFeatures', 'newCarUrl'];
+                    inputs.forEach(id => {
+                        const element = document.getElementById(id);
+                        if (element) element.value = '';
+                    });
+                    const typeInput = document.getElementById('newCarType');
+                    if (typeInput) typeInput.value = 'Плагін-гібрид';
+                }
             }
         }
 
         // Додати новий автомобіль
         function addNewCar() {
-            const id = document.getElementById('newCarId').value.trim();
-            const brand = document.getElementById('newCarBrand').value.trim();
-            const type = document.getElementById('newCarType').value.trim();
-            const features = document.getElementById('newCarFeatures').value.trim();
-            const url = document.getElementById('newCarUrl').value.trim();
+            const id = document.getElementById('newCarId')?.value?.trim() || '';
+            const brand = document.getElementById('newCarBrand')?.value?.trim() || '';
+            const type = document.getElementById('newCarType')?.value?.trim() || 'Плагін-гібрид';
+            const features = document.getElementById('newCarFeatures')?.value?.trim() || '';
+            const url = document.getElementById('newCarUrl')?.value?.trim() || '';
 
             if (!id || !brand || !url) {
                 alert('Будь ласка, заповніть обов\'язкові поля: ID, Марка/Модель та Посилання');
@@ -1243,8 +573,8 @@
             const newCar = {
                 id: id,
                 brand: brand,
-                type: type || 'Плагін-гібрид',
-                features: features || '',
+                type: type,
+                features: features,
                 url: url
             };
 
@@ -1289,9 +619,9 @@
 
         // Оновлення відображення оцінки
         function updateRatingDisplay(carId) {
-            const plusBtn = document.querySelector(`#plus-${carId}`);
-            const minusBtn = document.querySelector(`#minus-${carId}`);
-            const statusSpan = document.querySelector(`#status-${carId}`);
+            const plusBtn = document.querySelector('#plus-' + carId);
+            const minusBtn = document.querySelector('#minus-' + carId);
+            const statusSpan = document.querySelector('#status-' + carId);
             
             if (!plusBtn || !minusBtn || !statusSpan) return;
             
@@ -1317,6 +647,8 @@
         // Генерація таблиці
         function generateTable() {
             const tbody = document.getElementById('carTable');
+            if (!tbody) return;
+            
             tbody.innerHTML = '';
 
             carsData.forEach((car, index) => {
@@ -1331,7 +663,7 @@
                         <input 
                             type="text" 
                             class="editable-input brand-model-input" 
-                            value="${car.brand}"
+                            value="${car.brand || ''}"
                             onchange="updateCarData('${car.id}', 'brand', this.value)"
                             placeholder="Марка/Модель"
                         >
@@ -1340,7 +672,7 @@
                         <input 
                             type="text" 
                             class="editable-input" 
-                            value="${car.type}"
+                            value="${car.type || ''}"
                             onchange="updateCarData('${car.id}', 'type', this.value)"
                             placeholder="Тип двигуна"
                         >
@@ -1349,7 +681,7 @@
                         <input 
                             type="text" 
                             class="editable-input features-input" 
-                            value="${car.features}"
+                            value="${car.features || ''}"
                             onchange="updateCarData('${car.id}', 'features', this.value)"
                             placeholder="Особливості"
                         >
@@ -1370,7 +702,7 @@
                         >${comment}</textarea>
                     </td>
                     <td class="link-cell">
-                        <a href="${car.url}" target="_blank">Переглянути оголошення</a>
+                        <a href="${car.url || '#'}" target="_blank">Переглянути оголошення</a>
                     </td>
                     <td class="actions-cell">
                         <button class="delete-btn" onclick="deleteCar('${car.id}')" title="Видалити">🗑️</button>
@@ -1379,15 +711,16 @@
                 
                 tbody.appendChild(row);
                 
-                // Оновлення відображення оцінки
-                setTimeout(() => updateRatingDisplay(car.id), 10);
+                // Оновлення відображення оцінки з затримкою
+                setTimeout(() => updateRatingDisplay(car.id), 50);
             });
         }
 
-        // Ініціалізація
+        // Ініціалізація додатку
         document.addEventListener('DOMContentLoaded', function() {
             loadSavedData();
             generateTable();
+            console.log('Додаток ініціалізовано успішно');
         });
     </script>
 </body>

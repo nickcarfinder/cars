@@ -303,8 +303,10 @@
             <button class="btn save-btn" onclick="saveData(event)">💾 Зберегти дані</button>
             <button class="btn clear-btn" onclick="clearAllData()">🗑️ Очистити все</button>
             <button class="btn add-btn" onclick="toggleAddForm()">➕ Додати авто</button>
+            <button class="btn" style="background: #9b59b6; color: white;" onclick="exportData()">📁 Експорт</button>
+            <button class="btn" style="background: #f39c12; color: white;" onclick="importData()">📂 Імпорт</button>
             <span class="info-text">
-                Дані зберігаються в пам'яті під час сесії (localStorage недоступний в sandbox)
+                💾 Дані автоматично зберігаються в браузері
             </span>
         </div>
         
@@ -461,24 +463,46 @@
 
         // Завантаження збережених даних
         function loadSavedData() {
-            // В sandbox середовищі localStorage недоступний
-            // Дані зберігаються в пам'яті під час сесії
-            console.log('Дані завантажуються з пам\'яті (localStorage недоступний в sandbox)');
+            try {
+                const savedRatings = localStorage.getItem('carRatings');
+                const savedComments = localStorage.getItem('carComments');
+                const savedCars = localStorage.getItem('carsData');
+                
+                carRatings = savedRatings ? JSON.parse(savedRatings) : {};
+                carComments = savedComments ? JSON.parse(savedComments) : {};
+                
+                if (savedCars) {
+                    carsData = JSON.parse(savedCars);
+                }
+                
+                console.log('Дані успішно завантажені з localStorage');
+            } catch (error) {
+                console.error('Помилка завантаження даних:', error);
+                carRatings = {};
+                carComments = {};
+            }
         }
 
         // Збереження даних
         function saveData(event) {
-            // В sandbox середовищі localStorage недоступний
-            // Дані зберігаються в пам'яті під час сесії
-            if (event && event.target) {
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = '✅ Збережено в пам\'яті!';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
+            try {
+                localStorage.setItem('carRatings', JSON.stringify(carRatings));
+                localStorage.setItem('carComments', JSON.stringify(carComments));
+                localStorage.setItem('carsData', JSON.stringify(carsData));
+                
+                if (event && event.target) {
+                    const btn = event.target;
+                    const originalText = btn.textContent;
+                    btn.textContent = '✅ Збережено!';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                    }, 2000);
+                }
+                console.log('Дані успішно збережені в localStorage');
+            } catch (error) {
+                console.error('Помилка збереження:', error);
+                alert('Не вдалося зберегти дані');
             }
-            console.log('Дані збережені в пам\'яті сесії');
         }
 
         // Очистка всіх даних
@@ -486,26 +510,76 @@
             if (confirm('Ви впевнені, що хочете очистити всі дані (авто, оцінки, коментарі)?')) {
                 carRatings = {};
                 carComments = {};
-                // Відновити початкові дані автомобілів
-                carsData = [
-                    {
-                        id: "426743473",
-                        brand: "Mercedes-Benz GLC 300",
-                        type: "Гібрид",
-                        features: "AHK, Камера, Панорама",
-                        url: "https://suchen.mobile.de/auto-inserat/mercedes-benz-glc-300-ahk-kamera-pano/426743473.html"
-                    },
-                    // ... інші початкові автомобілі будуть відновлені
-                ];
-                generateTable();
+                localStorage.removeItem('carRatings');
+                localStorage.removeItem('carComments');
+                localStorage.removeItem('carsData');
+                
+                // Відновити початкові дані
+                location.reload();
             }
         }
 
         // Автозбереження
         function autoSave() {
-            // В sandbox середовищі localStorage недоступний
-            // Дані зберігаються в пам'яті під час сесії
-            console.log('Автозбереження: дані оновлені в пам\'яті');
+            try {
+                localStorage.setItem('carRatings', JSON.stringify(carRatings));
+                localStorage.setItem('carComments', JSON.stringify(carComments));
+                localStorage.setItem('carsData', JSON.stringify(carsData));
+                console.log('Автозбереження: дані оновлені в localStorage');
+            } catch (error) {
+                console.error('Помилка автозбереження:', error);
+            }
+        }
+
+        // Експорт даних
+        function exportData() {
+            const exportData = {
+                carsData: carsData,
+                carRatings: carRatings,
+                carComments: carComments,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `car-table-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        // Імпорт даних
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const imported = JSON.parse(e.target.result);
+                        
+                        if (imported.carsData) carsData = imported.carsData;
+                        if (imported.carRatings) carRatings = imported.carRatings;
+                        if (imported.carComments) carComments = imported.carComments;
+                        
+                        autoSave();
+                        generateTable();
+                        alert('Дані успішно імпортовано!');
+                    } catch (error) {
+                        alert('Помилка при імпорті файлу');
+                        console.error('Import error:', error);
+                    }
+                };
+                reader.readAsText(file);
+            };
+            
+            input.click();
         }
 
         // Показати/приховати форму додавання

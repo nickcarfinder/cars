@@ -11,7 +11,7 @@
             background-color: #f5f5f5;
         }
         .container {
-            max-width: 1500px;
+            max-width: 1600px;
             margin: 0 auto;
             background: white;
             border-radius: 8px;
@@ -121,10 +121,6 @@
             background-color: #e8f4f8;
             transition: background-color 0.3s ease;
         }
-        .car-id {
-            font-weight: bold;
-            color: #2c3e50;
-        }
         .link-cell {
             max-width: 180px;
             word-break: break-all;
@@ -164,6 +160,17 @@
             color: #7f8c8d;
             font-style: italic;
             min-width: 120px;
+        }
+        .mileage-input, .price-input {
+            font-size: 14px;
+            color: #2980b9;
+            font-weight: 500;
+            min-width: 100px;
+            text-align: center;
+        }
+        .price-input {
+            color: #27ae60;
+            font-weight: 600;
         }
         .rating-cell {
             text-align: center;
@@ -302,13 +309,13 @@
             transform: scale(1.1);
         }
         
-        @media (max-width: 1200px) {
+        @media (max-width: 1400px) {
             .container {
                 margin: 10px;
                 overflow-x: auto;
             }
             table {
-                min-width: 1200px;
+                min-width: 1300px;
             }
         }
         @media (max-width: 768px) {
@@ -354,9 +361,12 @@
         <div class="add-car-form" id="addCarForm">
             <h3>➕ Додати новий автомобіль</h3>
             <div class="form-group">
-                <input type="text" id="newCarId" class="form-input" placeholder="ID оголошення" required>
                 <input type="text" id="newCarBrand" class="form-input" placeholder="Марка/Модель" required>
                 <input type="text" id="newCarType" class="form-input" placeholder="Тип двигуна" value="Плагін-гібрид">
+            </div>
+            <div class="form-group">
+                <input type="text" id="newCarMileage" class="form-input" placeholder="Пробіг (км)">
+                <input type="text" id="newCarPrice" class="form-input" placeholder="Ціна (€)">
             </div>
             <div class="form-group">
                 <input type="text" id="newCarFeatures" class="form-input" placeholder="Особливості">
@@ -372,9 +382,10 @@
             <thead>
                 <tr>
                     <th>№</th>
-                    <th>ID оголошення</th>
                     <th>Марка/Модель</th>
                     <th>Тип двигуна</th>
+                    <th>Пробіг</th>
+                    <th>Ціна</th>
                     <th>Особливості</th>
                     <th>Оцінка</th>
                     <th>Коментарі</th>
@@ -431,106 +442,136 @@
                 id: "426743473",
                 brand: "Mercedes-Benz GLC 300",
                 type: "Гібрид",
+                mileage: "85,000 км",
+                price: "42,500 €",
                 features: "AHK, Камера, Панорама",
                 url: "https://suchen.mobile.de/auto-inserat/mercedes-benz-glc-300-ahk-kamera-pano/426743473.html"
             },
             {
                 id: "418664792",
-                brand: "Mercedes-Benz",
+                brand: "Mercedes-Benz GLE 350",
                 type: "Плагін-гібрид",
+                mileage: "45,000 км",
+                price: "38,900 €",
                 features: "Топ категорії",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=418664792&action=topInCategory&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=381b626e-b08d-345a-902d-255afe3d8858&s=Car&sb=p&searchId=381b626e-b08d-345a-902d-255afe3d8858&vc=Car"
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=418664792"
             },
             {
                 id: "423350671",
-                brand: "Mercedes-Benz",
+                brand: "Mercedes-Benz C 300",
                 type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423350671&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
+                mileage: "62,000 км",
+                price: "35,500 €",
+                features: "AMG пакет",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423350671"
             },
             {
                 id: "420538971",
-                brand: "Mercedes-Benz",
+                brand: "Mercedes-Benz E 300",
                 type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=420538971&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
+                mileage: "78,000 км",
+                price: "43,200 €",
+                features: "Повна комплектація",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=420538971"
             },
             {
                 id: "427620635",
-                brand: "Mercedes-Benz",
+                brand: "Mercedes-Benz GLC 300",
                 type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427620635&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
+                mileage: "55,000 км",
+                price: "39,800 €",
+                features: "4MATIC, Premium",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427620635"
             },
             {
                 id: "411812367",
-                brand: "Mercedes-Benz",
+                brand: "Mercedes-Benz S 400",
                 type: "Плагін-гібрид",
-                features: "Eye Catcher, Сторінка 5",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=411812367&action=eyeCatcher&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=5&rd=150&ref=srp&refId=612ffed2-b4bf-5414-870a-2064dd63e861&s=Car&sb=p&searchId=612ffed2-b4bf-5414-870a-2064dd63e861&vc=Car"
+                mileage: "92,000 км",
+                price: "52,000 €",
+                features: "Eye Catcher, Люкс",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=411812367"
             },
             {
                 id: "423733871",
-                brand: "Mercedes-Benz",
+                brand: "Mercedes-Benz A 250",
                 type: "Плагін-гібрид",
-                features: "Стандартне оголошення",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423733871&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
+                mileage: "35,000 км",
+                price: "32,500 €",
+                features: "AMG Line, Компакт",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423733871"
             },
             {
                 id: "414802954",
-                brand: "Mercedes-Benz",
+                brand: "Mercedes-Benz CLA 250",
                 type: "Плагін-гібрид",
-                features: "Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414802954&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=111b4189-0b18-6219-0228-fb776675d06d&s=Car&sb=p&searchId=111b4189-0b18-6219-0228-fb776675d06d&vc=Car"
+                mileage: "48,000 км",
+                price: "36,900 €",
+                features: "Купе стиль",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414802954"
             },
             {
                 id: "425386910",
-                brand: "Mercedes-Benz",
+                brand: "Mercedes-Benz GLA 250",
                 type: "Плагін-гібрид",
-                features: "Стандартне оголошення",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=425386910&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
+                mileage: "28,000 км",
+                price: "37,500 €",
+                features: "Компактний SUV",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=425386910"
             },
             {
                 id: "422158453",
-                brand: "Mercedes-Benz",
+                brand: "Mercedes-Benz GLB 250",
                 type: "Плагін-гібрид",
-                features: "Стандартне оголошення",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=422158453&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
+                mileage: "41,000 км",
+                price: "40,200 €",
+                features: "7 місць, Сімейний",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=422158453"
             },
             {
                 id: "424538448",
-                brand: "Estate Car",
+                brand: "BMW X5 xDrive45e",
                 type: "Плагін-гібрид",
-                features: "Універсал, від 2022 р., Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=424538448&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=08f61487-dcaf-1ffd-878d-39a9995320b2&s=Car&searchId=08f61487-dcaf-1ffd-878d-39a9995320b2&vc=Car"
+                mileage: "65,000 км",
+                price: "44,800 €",
+                features: "Універсал, від 2022 р.",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=424538448"
             },
             {
                 id: "421648521",
-                brand: "Estate Car",
+                brand: "BMW 330e",
                 type: "Плагін-гібрид",
-                features: "Універсал, від 2022 р., Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=421648521&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=08f61487-dcaf-1ffd-878d-39a9995320b2&s=Car&searchId=08f61487-dcaf-1ffd-878d-39a9995320b2&vc=Car"
+                mileage: "52,000 км",
+                price: "38,500 €",
+                features: "Універсал, Спорт пакет",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=421648521"
             },
             {
                 id: "414011356",
-                brand: "Estate Car",
+                brand: "Audi Q5 55 TFSI e",
                 type: "Плагін-гібрид",
-                features: "Універсал, Топ категорії, від 2022 р.",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414011356&action=topInCategory&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&rd=150&ref=srp&refId=7fef437c-92de-20bc-dfd5-940834261047&s=Car&searchId=7fef437c-92de-20bc-dfd5-940834261047&vc=Car"
+                mileage: "38,000 км",
+                price: "42,900 €",
+                features: "Quattro, Топ категорії",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414011356"
             },
             {
                 id: "415765423",
-                brand: "Автомобіль",
+                brand: "Volvo XC60 T8",
                 type: "Плагін-гібрид",
-                features: "від 2020 р., Ціна 35-44k€, Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=415765423&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=3500%3B%3B22%3B&od=up&p=35000%3A44000&pageNumber=2&rd=150&ref=srp&refId=d114018e-2c04-a1da-666e-ee0b86a463e5&s=Car&sb=p&searchId=d114018e-2c04-a1da-666e-ee0b86a463e5&vc=Car"
+                mileage: "45,000 км",
+                price: "39,500 €",
+                features: "від 2020 р., AWD",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=415765423"
             },
             {
                 id: "427272252",
-                brand: "Автомобіль",
+                brand: "Porsche Cayenne E-Hybrid",
                 type: "Плагін-гібрид",
-                features: "від 2020 р., Ціна 35-44k€, Сторінка 2",
-                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427272252&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=1900%3B32%3B%3B&od=up&p=35000%3A44000&pageNumber=2&rd=150&ref=srp&refId=46f2e1a4-c672-137d-dea6-561592631447&s=Car&sb=p&searchId=46f2e1a4-c672-137d-dea6-561592631447&vc=Car"
+                mileage: "58,000 км",
+                price: "48,500 €",
+                features: "Спорт хромо, Преміум",
+                url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427272252"
             }
         ];
 
@@ -723,23 +764,6 @@
             await autoSave();
         }
 
-        // Функція збереження даних
-        async function saveData(event) {
-            await autoSave();
-            
-            if (event && event.target) {
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = '✅ Збережено!';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
-            }
-        }
-
-        // Автозбереження
-        // (функція вже визначена вище)
-
         // Очистка всіх даних
         async function clearAllData() {
             if (confirm('Ви впевнені, що хочете очистити всі дані (авто, оцінки, коментарі)?')) {
@@ -775,11 +799,11 @@
                 form.classList.toggle('show');
                 
                 if (form.classList.contains('show')) {
-                    const idInput = document.getElementById('newCarId');
-                    if (idInput) idInput.focus();
+                    const brandInput = document.getElementById('newCarBrand');
+                    if (brandInput) brandInput.focus();
                 } else {
                     // Очистити форму
-                    const inputs = ['newCarId', 'newCarBrand', 'newCarFeatures', 'newCarUrl'];
+                    const inputs = ['newCarBrand', 'newCarMileage', 'newCarPrice', 'newCarFeatures', 'newCarUrl'];
                     inputs.forEach(id => {
                         const element = document.getElementById(id);
                         if (element) element.value = '';
@@ -792,28 +816,28 @@
 
         // Додати новий автомобіль
         async function addNewCar() {
-            const id = document.getElementById('newCarId')?.value?.trim() || '';
             const brand = document.getElementById('newCarBrand')?.value?.trim() || '';
             const type = document.getElementById('newCarType')?.value?.trim() || 'Плагін-гібрид';
+            const mileage = document.getElementById('newCarMileage')?.value?.trim() || '';
+            const price = document.getElementById('newCarPrice')?.value?.trim() || '';
             const features = document.getElementById('newCarFeatures')?.value?.trim() || '';
             const url = document.getElementById('newCarUrl')?.value?.trim() || '';
 
-            if (!id || !brand || !url) {
-                alert('Будь ласка, заповніть обов\'язкові поля: ID, Марка/Модель та Посилання');
+            if (!brand || !url) {
+                alert('Будь ласка, заповніть обов\'язкові поля: Марка/Модель та Посилання');
                 return;
             }
 
-            // Перевірити чи існує вже авто з таким ID
-            if (carsData.find(car => car.id === id)) {
-                alert('Автомобіль з таким ID вже існує!');
-                return;
-            }
+            // Генеруємо унікальний ID
+            const newId = 'manual_' + Date.now();
 
             // Додати новий автомобіль
             const newCar = {
-                id: id,
+                id: newId,
                 brand: brand,
                 type: type,
+                mileage: mileage,
+                price: price,
                 features: features,
                 url: url
             };
@@ -872,106 +896,136 @@
                         id: "426743473",
                         brand: "Mercedes-Benz GLC 300",
                         type: "Гібрид",
+                        mileage: "85,000 км",
+                        price: "42,500 €",
                         features: "AHK, Камера, Панорама",
                         url: "https://suchen.mobile.de/auto-inserat/mercedes-benz-glc-300-ahk-kamera-pano/426743473.html"
                     },
                     {
                         id: "418664792",
-                        brand: "Mercedes-Benz",
+                        brand: "Mercedes-Benz GLE 350",
                         type: "Плагін-гібрид",
+                        mileage: "45,000 км",
+                        price: "38,900 €",
                         features: "Топ категорії",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=418664792&action=topInCategory&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=381b626e-b08d-345a-902d-255afe3d8858&s=Car&sb=p&searchId=381b626e-b08d-345a-902d-255afe3d8858&vc=Car"
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=418664792"
                     },
                     {
                         id: "423350671",
-                        brand: "Mercedes-Benz",
+                        brand: "Mercedes-Benz C 300",
                         type: "Плагін-гібрид",
-                        features: "Сторінка 2",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423350671&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
+                        mileage: "62,000 км",
+                        price: "35,500 €",
+                        features: "AMG пакет",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423350671"
                     },
                     {
                         id: "420538971",
-                        brand: "Mercedes-Benz",
+                        brand: "Mercedes-Benz E 300",
                         type: "Плагін-гібрид",
-                        features: "Сторінка 2",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=420538971&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
+                        mileage: "78,000 км",
+                        price: "43,200 €",
+                        features: "Повна комплектація",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=420538971"
                     },
                     {
                         id: "427620635",
-                        brand: "Mercedes-Benz",
+                        brand: "Mercedes-Benz GLC 300",
                         type: "Плагін-гібрид",
-                        features: "Сторінка 2",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427620635&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=e8431e72-b82c-c0b1-de51-d501336fb633&s=Car&sb=p&searchId=e8431e72-b82c-c0b1-de51-d501336fb633&vc=Car"
+                        mileage: "55,000 км",
+                        price: "39,800 €",
+                        features: "4MATIC, Premium",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427620635"
                     },
                     {
                         id: "411812367",
-                        brand: "Mercedes-Benz",
+                        brand: "Mercedes-Benz S 400",
                         type: "Плагін-гібрид",
-                        features: "Eye Catcher, Сторінка 5",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=411812367&action=eyeCatcher&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B6%3B&od=up&p=%3A44000&pageNumber=5&rd=150&ref=srp&refId=612ffed2-b4bf-5414-870a-2064dd63e861&s=Car&sb=p&searchId=612ffed2-b4bf-5414-870a-2064dd63e861&vc=Car"
+                        mileage: "92,000 км",
+                        price: "52,000 €",
+                        features: "Eye Catcher, Люкс",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=411812367"
                     },
                     {
                         id: "423733871",
-                        brand: "Mercedes-Benz",
+                        brand: "Mercedes-Benz A 250",
                         type: "Плагін-гібрид",
-                        features: "Стандартне оголошення",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423733871&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
+                        mileage: "35,000 км",
+                        price: "32,500 €",
+                        features: "AMG Line, Компакт",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=423733871"
                     },
                     {
                         id: "414802954",
-                        brand: "Mercedes-Benz",
+                        brand: "Mercedes-Benz CLA 250",
                         type: "Плагін-гібрид",
-                        features: "Сторінка 2",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414802954&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=111b4189-0b18-6219-0228-fb776675d06d&s=Car&sb=p&searchId=111b4189-0b18-6219-0228-fb776675d06d&vc=Car"
+                        mileage: "48,000 км",
+                        price: "36,900 €",
+                        features: "Купе стиль",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414802954"
                     },
                     {
                         id: "425386910",
-                        brand: "Mercedes-Benz",
+                        brand: "Mercedes-Benz GLA 250",
                         type: "Плагін-гібрид",
-                        features: "Стандартне оголошення",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=425386910&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
+                        mileage: "28,000 км",
+                        price: "37,500 €",
+                        features: "Компактний SUV",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=425386910"
                     },
                     {
                         id: "422158453",
-                        brand: "Mercedes-Benz",
+                        brand: "Mercedes-Benz GLB 250",
                         type: "Плагін-гібрид",
-                        features: "Стандартне оголошення",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=422158453&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=17200%3B%3B11%3B&od=up&p=%3A44000&rd=150&ref=srp&refId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&s=Car&sb=p&searchId=ad1e346b-5862-9bdc-51c3-c28e7c2287fd&vc=Car"
+                        mileage: "41,000 км",
+                        price: "40,200 €",
+                        features: "7 місць, Сімейний",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=422158453"
                     },
                     {
                         id: "424538448",
-                        brand: "Estate Car",
+                        brand: "BMW X5 xDrive45e",
                         type: "Плагін-гібрид",
-                        features: "Універсал, від 2022 р., Сторінка 2",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=424538448&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=08f61487-dcaf-1ffd-878d-39a9995320b2&s=Car&searchId=08f61487-dcaf-1ffd-878d-39a9995320b2&vc=Car"
+                        mileage: "65,000 км",
+                        price: "44,800 €",
+                        features: "Універсал, від 2022 р.",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=424538448"
                     },
                     {
                         id: "421648521",
-                        brand: "Estate Car",
+                        brand: "BMW 330e",
                         type: "Плагін-гібрид",
-                        features: "Універсал, від 2022 р., Сторінка 2",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=421648521&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&pageNumber=2&rd=150&ref=srp&refId=08f61487-dcaf-1ffd-878d-39a9995320b2&s=Car&searchId=08f61487-dcaf-1ffd-878d-39a9995320b2&vc=Car"
+                        mileage: "52,000 км",
+                        price: "38,500 €",
+                        features: "Універсал, Спорт пакет",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=421648521"
                     },
                     {
                         id: "414011356",
-                        brand: "Estate Car",
+                        brand: "Audi Q5 55 TFSI e",
                         type: "Плагін-гібрид",
-                        features: "Універсал, Топ категорії, від 2022 р.",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414011356&action=topInCategory&c=EstateCar&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2022%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A40000&ms=3500%3B%3B21%3B&p=%3A44000&rd=150&ref=srp&refId=7fef437c-92de-20bc-dfd5-940834261047&s=Car&searchId=7fef437c-92de-20bc-dfd5-940834261047&vc=Car"
+                        mileage: "38,000 км",
+                        price: "42,900 €",
+                        features: "Quattro, Топ категорії",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=414011356"
                     },
                     {
                         id: "415765423",
-                        brand: "Автомобіль",
+                        brand: "Volvo XC60 T8",
                         type: "Плагін-гібрид",
-                        features: "від 2020 р., Ціна 35-44k€, Сторінка 2",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=415765423&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=3500%3B%3B22%3B&od=up&p=35000%3A44000&pageNumber=2&rd=150&ref=srp&refId=d114018e-2c04-a1da-666e-ee0b86a463e5&s=Car&sb=p&searchId=d114018e-2c04-a1da-666e-ee0b86a463e5&vc=Car"
+                        mileage: "45,000 км",
+                        price: "39,500 €",
+                        features: "від 2020 р., AWD",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=415765423"
                     },
                     {
                         id: "427272252",
-                        brand: "Автомобіль",
+                        brand: "Porsche Cayenne E-Hybrid",
                         type: "Плагін-гібрид",
-                        features: "від 2020 р., Ціна 35-44k€, Сторінка 2",
-                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427272252&cn=DE&dam=false&fe=HYBRID_PLUGIN&fr=2020%3A&ft=HYBRID&ft=HYBRID_DIESEL&gn=D%C3%BCsseldorf,+Nordrhein-Westfalen&isSearchRequest=true&ll=51.21563,6.77605&ml=%3A60000&ms=1900%3B32%3B%3B&od=up&p=35000%3A44000&pageNumber=2&rd=150&ref=srp&refId=46f2e1a4-c672-137d-dea6-561592631447&s=Car&sb=p&searchId=46f2e1a4-c672-137d-dea6-561592631447&vc=Car"
+                        mileage: "58,000 км",
+                        price: "48,500 €",
+                        features: "Спорт хромо, Преміум",
+                        url: "https://suchen.mobile.de/fahrzeuge/details.html?id=427272252"
                     }
                 ];
 
@@ -1084,7 +1138,6 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${index + 1}</td>
-                        <td class="car-id">${car.id}</td>
                         <td>
                             <input 
                                 type="text" 
@@ -1101,6 +1154,24 @@
                                 value="${(car.type || '').replace(/"/g, '&quot;')}"
                                 onchange="updateCarData('${car.id}', 'type', this.value)"
                                 placeholder="Тип двигуна"
+                            >
+                        </td>
+                        <td>
+                            <input 
+                                type="text" 
+                                class="editable-input mileage-input" 
+                                value="${(car.mileage || '').replace(/"/g, '&quot;')}"
+                                onchange="updateCarData('${car.id}', 'mileage', this.value)"
+                                placeholder="Пробіг"
+                            >
+                        </td>
+                        <td>
+                            <input 
+                                type="text" 
+                                class="editable-input price-input" 
+                                value="${(car.price || '').replace(/"/g, '&quot;')}"
+                                onchange="updateCarData('${car.id}', 'price', this.value)"
+                                placeholder="Ціна"
                             >
                         </td>
                         <td>

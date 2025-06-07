@@ -223,7 +223,29 @@
             font-weight: bold;
             margin: 10px 0;
         }
-        .bookmarklet-link:hover {
+        .bookmarklet-info pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            overflow-x: auto;
+            position: relative;
+            margin: 10px 0;
+        }
+        .copy-code-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .copy-code-btn:hover {
             background: #2980b9;
         }
         
@@ -586,20 +608,43 @@
         </div>
         
         <div class="bookmarklet-info" id="bookmarkletInfo">
-            <h3>📌 Букмарклет для швидкого копіювання даних з Mobile.de</h3>
-            <p><strong>Як користуватися:</strong></p>
+            <h3>📌 Інструкція для копіювання даних з Mobile.de</h3>
+            
+            <div style="background: #fff3cd; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                <strong>🌐 Для Arc Browser:</strong> Використовуйте Arc Boost або метод через консоль (див. нижче)
+            </div>
+            
+            <h4>Варіант 1: Arc Boost (рекомендовано для Arc)</h4>
             <ol>
-                <li>Перетягніть цю кнопку в панель закладок браузера:</li>
-                <a href="javascript:(function(){var data={};var title=document.querySelector('h1.h2')?.textContent?.trim()||'';data.brand=title;var priceEl=document.querySelector('[data-testid=&quot;prime-price&quot;]');data.price=priceEl?priceEl.textContent.trim():'';var mileageEl=Array.from(document.querySelectorAll('[data-testid=&quot;mileage&quot;]')).find(el=>el.textContent.includes('km'));data.mileage=mileageEl?mileageEl.textContent.trim():'';var features=[];document.querySelectorAll('[data-testid=&quot;basic-details-item&quot;]').forEach(el=>{var text=el.textContent.trim();if(text&&!text.includes('km')&&!text.includes('€'))features.push(text);});data.features=features.slice(0,3).join(', ');data.url=window.location.href;data.type='Плагін-гібрид';var output='🚗 '+data.brand+'\n';output+='💶 '+data.price+'\n';output+='📏 '+data.mileage+'\n';output+='✨ '+data.features+'\n';output+='🔗 '+data.url;navigator.clipboard.writeText(output).then(()=>{alert('✅ Дані скопійовані!\n\n'+output+'\n\nТепер вставте їх у форму додавання авто.');}).catch(()=>{prompt('Скопіюйте ці дані:',output);});})();" class="bookmarklet-link">
-                    📋 Mobile.de Копіювач
-                </a>
-                <li>Відкрийте оголошення авто на mobile.de</li>
-                <li>Натисніть на закладку "Mobile.de Копіювач"</li>
-                <li>Дані автоматично скопіюються в буфер обміну</li>
-                <li>Натисніть "➕ Додати авто" і вставте дані в поле "Марка/Модель" (Ctrl+V)</li>
+                <li>Натисніть Cmd+T і введіть "boost"</li>
+                <li>Створіть новий Boost для сайту mobile.de</li>
+                <li>Виберіть "Inject JS" і вставте код з інструкції</li>
+                <li>На сторінках mobile.de з'явиться кнопка "📋 Копіювати для таблиці"</li>
+            </ol>
+            
+            <h4>Варіант 2: Через консоль (швидкий спосіб)</h4>
+            <ol>
+                <li>Відкрийте оголошення на mobile.de</li>
+                <li>Відкрийте консоль (Cmd+Option+I)</li>
+                <li>Вставте цей код і натисніть Enter:</li>
+            </ol>
+            <pre style="background: #2c3e50; color: #ecf0f1; padding: 10px; border-radius: 5px; font-size: 12px; overflow-x: auto; position: relative;">
+<button class="copy-code-btn" onclick="copyConsoleCode()" style="position: absolute; top: 5px; right: 5px; background: #3498db; color: white; border: none; padding: 4px 8px; border-radius: 3px; font-size: 11px; cursor: pointer;">📋 Копіювати</button>(function(){var d={};d.brand=document.querySelector('h1')?.textContent?.trim()||'';d.price=document.querySelector('[data-testid="prime-price"]')?.textContent?.trim()||'';d.mileage=Array.from(document.querySelectorAll('.u-block')).find(el=>el.textContent.includes('km'))?.textContent?.trim()||'';var f=[];document.querySelectorAll('[data-testid="basic-details-item"]').forEach(el=>{var t=el.textContent.trim();if(t&&!t.includes('km')&&!t.includes('€'))f.push(t);});d.features=f.slice(0,3).join(', ');d.url=window.location.href;var o='🚗 '+d.brand+'\n💶 '+d.price+'\n📏 '+d.mileage+'\n✨ '+d.features+'\n🔗 '+d.url;navigator.clipboard.writeText(o);console.log('✅ Скопійовано!\n\n'+o);})();</pre>
+            
+            <h4>Варіант 3: Букмарклет (для інших браузерів)</h4>
+            <p>Перетягніть цю кнопку в панель закладок:</p>
+            <a href="javascript:(function(){var data={};var title=document.querySelector('h1.h2')?.textContent?.trim()||'';data.brand=title;var priceEl=document.querySelector('[data-testid=&quot;prime-price&quot;]');data.price=priceEl?priceEl.textContent.trim():'';var mileageEl=Array.from(document.querySelectorAll('[data-testid=&quot;mileage&quot;]')).find(el=>el.textContent.includes('km'));data.mileage=mileageEl?mileageEl.textContent.trim():'';var features=[];document.querySelectorAll('[data-testid=&quot;basic-details-item&quot;]').forEach(el=>{var text=el.textContent.trim();if(text&&!text.includes('km')&&!text.includes('€'))features.push(text);});data.features=features.slice(0,3).join(', ');data.url=window.location.href;data.type='Плагін-гібрид';var output='🚗 '+data.brand+'\n';output+='💶 '+data.price+'\n';output+='📏 '+data.mileage+'\n';output+='✨ '+data.features+'\n';output+='🔗 '+data.url;navigator.clipboard.writeText(output).then(()=>{alert('✅ Дані скопійовані!\n\n'+output+'\n\nТепер вставте їх у форму додавання авто.');}).catch(()=>{prompt('Скопіюйте ці дані:',output);});})();" class="bookmarklet-link">
+                📋 Mobile.de Копіювач
+            </a>
+            
+            <h4>Як використовувати скопійовані дані:</h4>
+            <ol>
+                <li>Натисніть "➕ Додати авто"</li>
+                <li>Вставте дані в поле "Марка/Модель" (Cmd+V)</li>
                 <li>Всі поля заповняться автоматично!</li>
             </ol>
-            <p style="color: #e74c3c;"><strong>Важливо:</strong> Букмарклет працює тільки на сторінках mobile.de з деталями авто</p>
+            
+            <p style="color: #27ae60;"><strong>💡 Підказка:</strong> Після копіювання даних можете також натиснути кнопку внизу форми для швидкого заповнення</p>
         </div>
         
         <div class="add-car-form" id="addCarForm">
@@ -623,6 +668,7 @@
             <div class="form-actions">
                 <button class="btn add-btn" onclick="addNewCar()">✅ Додати</button>
                 <button class="btn cancel-btn" onclick="toggleAddForm()">❌ Скасувати</button>
+                <button class="btn" style="background: #f39c12; color: white;" onclick="window.quickFillFromClipboard && window.quickFillFromClipboard()" title="Заповнити з буфера обміну">📋 Вставити з буфера</button>
             </div>
         </div>
         
@@ -1185,6 +1231,24 @@
                     brandInput.value = text.trim();
                 }
             });
+            
+            // Додаємо глобальну функцію для швидкого заповнення (для Arc)
+            window.quickFillFromClipboard = async () => {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    const event = new ClipboardEvent('paste', {
+                        clipboardData: new DataTransfer()
+                    });
+                    Object.defineProperty(event, 'clipboardData', {
+                        value: {
+                            getData: () => text
+                        }
+                    });
+                    brandInput.dispatchEvent(event);
+                } catch (err) {
+                    console.error('Помилка читання буфера:', err);
+                }
+            };
         }
 
         // Додати новий автомобіль
@@ -1315,6 +1379,22 @@
                 hideCommentTemplates();
             }
         });
+
+        // Копіювати код для консолі
+        function copyConsoleCode() {
+            const code = `(function(){var d={};d.brand=document.querySelector('h1')?.textContent?.trim()||'';d.price=document.querySelector('[data-testid="prime-price"]')?.textContent?.trim()||'';d.mileage=Array.from(document.querySelectorAll('.u-block')).find(el=>el.textContent.includes('km'))?.textContent?.trim()||'';var f=[];document.querySelectorAll('[data-testid="basic-details-item"]').forEach(el=>{var t=el.textContent.trim();if(t&&!t.includes('km')&&!t.includes('€'))f.push(t);});d.features=f.slice(0,3).join(', ');d.url=window.location.href;var o='🚗 '+d.brand+'\\n💶 '+d.price+'\\n📏 '+d.mileage+'\\n✨ '+d.features+'\\n🔗 '+d.url;navigator.clipboard.writeText(o);console.log('✅ Скопійовано!\\n\\n'+o);})();`;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Скопійовано!';
+                btn.style.background = '#27ae60';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#3498db';
+                }, 2000);
+            });
+        }
 
         // Відновлення початкових даних
         async function resetToDefaults() {

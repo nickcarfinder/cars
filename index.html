@@ -11,7 +11,7 @@
             background-color: #f5f5f5;
         }
         .container {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             background: white;
             border-radius: 8px;
@@ -103,16 +103,36 @@
         th {
             background-color: #34495e;
             color: white;
-            padding: 15px 8px;
-            text-align: left;
+            padding: 12px 8px;
+            text-align: center;
             font-weight: 600;
             border-bottom: 2px solid #2c3e50;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        th:first-child { width: 50px; } /* № */
+        th:nth-child(2) { width: 200px; } /* Марка/Модель */
+        th:nth-child(3) { width: 120px; } /* Тип двигуна */
+        th:nth-child(4) { width: 100px; } /* Пробіг */
+        th:nth-child(5) { width: 90px; } /* Ціна */
+        th:nth-child(6) { width: 180px; } /* Особливості */
+        th:nth-child(7) { width: 160px; } /* Оцінка */
+        th:nth-child(8) { width: 250px; } /* Коментарі */
+        th:nth-child(9) { width: 120px; } /* Посилання */
+        th:nth-child(10) { width: 60px; } /* Дії */
+        td {
+            padding: 8px 6px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: middle;
+            text-align: center;
+        }
+        td:first-child { 
+            font-weight: bold; 
+            color: #7f8c8d; 
             font-size: 14px;
         }
-        td {
-            padding: 10px 8px;
-            border-bottom: 1px solid #ecf0f1;
-            vertical-align: top;
+        td:nth-child(2), td:nth-child(6) { 
+            text-align: left; 
         }
         tr:nth-child(even) {
             background-color: #f8f9fa;
@@ -122,80 +142,90 @@
             transition: background-color 0.3s ease;
         }
         .link-cell {
-            max-width: 180px;
-            word-break: break-all;
+            text-align: center;
+            vertical-align: middle;
+            padding: 5px !important;
         }
         .link-cell a {
             color: #3498db;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
+            padding: 4px 8px;
+            border: 1px solid #3498db;
+            border-radius: 4px;
+            display: inline-block;
+            transition: all 0.3s ease;
         }
         .link-cell a:hover {
-            text-decoration: underline;
-            color: #2980b9;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
         }
         .editable-input {
             width: 100%;
             border: 1px solid transparent;
             background: transparent;
-            padding: 4px;
+            padding: 6px 8px;
             font-family: inherit;
-            font-size: 14px;
-            border-radius: 3px;
+            font-size: 13px;
+            border-radius: 4px;
             transition: all 0.3s ease;
+            box-sizing: border-box;
+            text-align: center;
         }
         .editable-input:focus {
             outline: none;
             border-color: #3498db;
             background: white;
-            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
         }
         .brand-model-input {
             font-weight: 600;
             color: #2c3e50;
-            min-width: 150px;
+            text-align: left;
+            font-size: 14px;
         }
         .features-input {
             font-size: 12px;
             color: #7f8c8d;
             font-style: italic;
-            min-width: 120px;
+            text-align: left;
         }
-        .mileage-input, .price-input {
-            font-size: 14px;
+        .mileage-input {
+            font-size: 13px;
             color: #2980b9;
             font-weight: 500;
-            min-width: 100px;
-            text-align: center;
         }
         .price-input {
             color: #27ae60;
             font-weight: 600;
+            font-size: 14px;
         }
         .rating-cell {
             text-align: center;
-            width: 150px;
+            vertical-align: middle;
+            padding: 5px !important;
         }
         .rating-buttons {
             display: flex;
-            gap: 3px;
+            gap: 2px;
             justify-content: center;
-            margin-bottom: 5px;
-            flex-wrap: wrap;
+            margin-bottom: 4px;
+            flex-wrap: nowrap;
         }
         .rating-btn {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 1px;
+            flex-shrink: 0;
         }
         .priority-btn {
             background: linear-gradient(45deg, #f39c12, #e67e22);
@@ -258,17 +288,21 @@
             100% { opacity: 1; }
         }
         .comment-cell {
-            width: 250px;
+            text-align: left;
+            vertical-align: middle;
+            padding: 5px !important;
         }
         .comment-input {
             width: 100%;
-            min-height: 60px;
+            min-height: 50px;
+            max-height: 80px;
             border: 1px solid #bdc3c7;
             border-radius: 4px;
-            padding: 8px;
+            padding: 6px 8px;
             font-family: inherit;
-            font-size: 13px;
+            font-size: 12px;
             resize: vertical;
+            box-sizing: border-box;
         }
         .comment-input:focus {
             outline: none;
@@ -276,10 +310,14 @@
             box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
         }
         .status-indicator {
-            font-size: 12px;
-            padding: 2px 6px;
-            border-radius: 10px;
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 8px;
             font-weight: bold;
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+            max-width: 120px;
         }
         .status-liked {
             background: #d5f4e6;
@@ -290,40 +328,42 @@
             color: #e74c3c;
         }
         .actions-cell {
-            width: 60px;
             text-align: center;
+            vertical-align: middle;
+            padding: 5px !important;
         }
         .delete-btn {
             background: #e74c3c;
             color: white;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
         }
         .delete-btn:hover {
             background: #c0392b;
             transform: scale(1.1);
         }
         
-        @media (max-width: 1400px) {
+        @media (max-width: 1600px) {
             .container {
                 margin: 10px;
                 overflow-x: auto;
             }
             table {
-                min-width: 1300px;
+                min-width: 1400px;
             }
         }
         @media (max-width: 768px) {
-            .comment-cell {
-                width: 200px;
-            }
             .comment-input {
-                min-height: 50px;
+                min-height: 40px;
             }
             .controls {
                 flex-direction: column;
@@ -332,6 +372,15 @@
             .info-text {
                 margin-left: 0;
                 margin-top: 10px;
+            }
+            .rating-btn {
+                width: 24px;
+                height: 24px;
+                font-size: 11px;
+            }
+            th, td {
+                padding: 4px 2px;
+                font-size: 11px;
             }
         }
     </style>
@@ -881,10 +930,20 @@
             updateRatingDisplay(carId);
         }
 
-        // Оновлення коментаря
-        async function updateComment(carId, comment) {
-            carComments[carId] = comment;
-            await autoSave();
+        // Оновлення коментаря з затримкою
+        let commentTimeouts = {};
+        
+        function updateComment(carId, comment) {
+            // Очищуємо попередній таймер для цього авто
+            if (commentTimeouts[carId]) {
+                clearTimeout(commentTimeouts[carId]);
+            }
+            
+            // Встановлюємо новий таймер з затримкою
+            commentTimeouts[carId] = setTimeout(async () => {
+                carComments[carId] = comment;
+                await autoSave();
+            }, 1000); // Зберігаємо через 1 секунду після останнього введення
         }
 
         // Відновлення початкових даних
@@ -1195,8 +1254,7 @@
                             <textarea 
                                 class="comment-input" 
                                 placeholder="Додайте свій коментар..."
-                                onchange="updateComment('${car.id}', this.value)"
-                                onkeyup="updateComment('${car.id}', this.value)"
+                                oninput="updateComment('${car.id}', this.value)"
                             >${comment.replace(/"/g, '&quot;')}</textarea>
                         </td>
                         <td class="link-cell">

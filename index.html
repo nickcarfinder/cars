@@ -53,6 +53,8 @@
         .add-btn:hover { background: #2980b9; }
         .cancel-btn { background: #95a5a6; color: white; }
         .cancel-btn:hover { background: #7f8c8d; }
+        .compare-btn { background: #9b59b6; color: white; }
+        .compare-btn:hover { background: #8e44ad; }
         
         .info-text {
             margin-left: 20px;
@@ -95,6 +97,153 @@
             gap: 10px;
         }
         
+        /* Порівняння авто */
+        .comparison-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        .comparison-modal.show {
+            display: block;
+        }
+        .comparison-content {
+            background: white;
+            margin: 50px auto;
+            padding: 30px;
+            max-width: 1200px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .comparison-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        .comparison-close:hover {
+            color: #2c3e50;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .comparison-table th {
+            background: #34495e;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        .comparison-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .comparison-highlight {
+            background: #f1c40f !important;
+            font-weight: bold;
+        }
+        
+        /* Чекбокси для вибору */
+        .select-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        /* Темплейти коментарів */
+        .comment-templates {
+            position: absolute;
+            background: white;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            padding: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: none;
+            max-width: 300px;
+        }
+        .comment-templates.show {
+            display: block;
+        }
+        .template-item {
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .template-item:hover {
+            background: #3498db;
+            color: white;
+        }
+        .template-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        
+        /* Інструкція для букмарклета */
+        .bookmarklet-info {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 8px;
+            border: 2px dashed #3498db;
+            display: none;
+        }
+        .bookmarklet-info.show {
+            display: block;
+        }
+        .bookmarklet-link {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .bookmarklet-link:hover {
+            background: #2980b9;
+        }
+        
+        /* Paste hint */
+        .paste-hint {
+            position: absolute;
+            background: #2ecc71;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+            z-index: 200;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
@@ -110,28 +259,32 @@
             font-size: 13px;
             white-space: nowrap;
         }
-        th:first-child { width: 50px; } /* № */
-        th:nth-child(2) { width: 200px; } /* Марка/Модель */
-        th:nth-child(3) { width: 120px; } /* Тип двигуна */
-        th:nth-child(4) { width: 100px; } /* Пробіг */
-        th:nth-child(5) { width: 90px; } /* Ціна */
-        th:nth-child(6) { width: 180px; } /* Особливості */
-        th:nth-child(7) { width: 160px; } /* Оцінка */
-        th:nth-child(8) { width: 250px; } /* Коментарі */
-        th:nth-child(9) { width: 120px; } /* Посилання */
-        th:nth-child(10) { width: 60px; } /* Дії */
+        th:first-child { width: 30px; } /* Checkbox */
+        th:nth-child(2) { width: 50px; } /* № */
+        th:nth-child(3) { width: 200px; } /* Марка/Модель */
+        th:nth-child(4) { width: 120px; } /* Тип двигуна */
+        th:nth-child(5) { width: 100px; } /* Пробіг */
+        th:nth-child(6) { width: 90px; } /* Ціна */
+        th:nth-child(7) { width: 180px; } /* Особливості */
+        th:nth-child(8) { width: 160px; } /* Оцінка */
+        th:nth-child(9) { width: 250px; } /* Коментарі */
+        th:nth-child(10) { width: 120px; } /* Посилання */
+        th:nth-child(11) { width: 60px; } /* Дії */
         td {
             padding: 8px 6px;
             border-bottom: 1px solid #ecf0f1;
             vertical-align: middle;
             text-align: center;
         }
-        td:first-child { 
+        td:first-child {
+            padding: 0;
+        }
+        td:nth-child(2) { 
             font-weight: bold; 
             color: #7f8c8d; 
             font-size: 14px;
         }
-        td:nth-child(2), td:nth-child(6) { 
+        td:nth-child(3), td:nth-child(7) { 
             text-align: left; 
         }
         tr:nth-child(even) {
@@ -291,6 +444,7 @@
             text-align: left;
             vertical-align: middle;
             padding: 5px !important;
+            position: relative;
         }
         .comment-input {
             width: 100%;
@@ -352,6 +506,28 @@
             transform: scale(1.1);
         }
         
+        .stats-panel {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-top: 1px solid #dee2e6;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        .stat-number {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
         @media (max-width: 1600px) {
             .container {
                 margin: 10px;
@@ -400,17 +576,40 @@
             <button class="btn save-btn" onclick="forceSyncToCloud()">☁️ Синхронізувати</button>
             <button class="btn clear-btn" onclick="clearAllData()">🗑️ Очистити все</button>
             <button class="btn add-btn" onclick="toggleAddForm()">➕ Додати авто</button>
+            <button class="btn compare-btn" onclick="showComparison()" id="compareBtn">🔍 Порівняти (0)</button>
             <button class="btn" style="background: #8e44ad; color: white;" onclick="sortByPriority()">🏆 Сортувати за пріоритетом</button>
             <button class="btn" style="background: #17a2b8; color: white;" onclick="resetToDefaults()">🔄 Відновити початкові авто</button>
+            <button class="btn" style="background: #f39c12; color: white;" onclick="toggleBookmarkletInfo()">📌 Букмарклет</button>
             <span class="info-text">
                 ☁️ Автоматична синхронізація з Firebase + localStorage backup
             </span>
         </div>
         
+        <div class="bookmarklet-info" id="bookmarkletInfo">
+            <h3>📌 Букмарклет для швидкого копіювання даних з Mobile.de</h3>
+            <p><strong>Як користуватися:</strong></p>
+            <ol>
+                <li>Перетягніть цю кнопку в панель закладок браузера:</li>
+                <a href="javascript:(function(){var data={};var title=document.querySelector('h1.h2')?.textContent?.trim()||'';data.brand=title;var priceEl=document.querySelector('[data-testid=&quot;prime-price&quot;]');data.price=priceEl?priceEl.textContent.trim():'';var mileageEl=Array.from(document.querySelectorAll('[data-testid=&quot;mileage&quot;]')).find(el=>el.textContent.includes('km'));data.mileage=mileageEl?mileageEl.textContent.trim():'';var features=[];document.querySelectorAll('[data-testid=&quot;basic-details-item&quot;]').forEach(el=>{var text=el.textContent.trim();if(text&&!text.includes('km')&&!text.includes('€'))features.push(text);});data.features=features.slice(0,3).join(', ');data.url=window.location.href;data.type='Плагін-гібрид';var output='🚗 '+data.brand+'\n';output+='💶 '+data.price+'\n';output+='📏 '+data.mileage+'\n';output+='✨ '+data.features+'\n';output+='🔗 '+data.url;navigator.clipboard.writeText(output).then(()=>{alert('✅ Дані скопійовані!\n\n'+output+'\n\nТепер вставте їх у форму додавання авто.');}).catch(()=>{prompt('Скопіюйте ці дані:',output);});})();" class="bookmarklet-link">
+                    📋 Mobile.de Копіювач
+                </a>
+                <li>Відкрийте оголошення авто на mobile.de</li>
+                <li>Натисніть на закладку "Mobile.de Копіювач"</li>
+                <li>Дані автоматично скопіюються в буфер обміну</li>
+                <li>Натисніть "➕ Додати авто" і вставте дані в поле "Марка/Модель" (Ctrl+V)</li>
+                <li>Всі поля заповняться автоматично!</li>
+            </ol>
+            <p style="color: #e74c3c;"><strong>Важливо:</strong> Букмарклет працює тільки на сторінках mobile.de з деталями авто</p>
+        </div>
+        
         <div class="add-car-form" id="addCarForm">
             <h3>➕ Додати новий автомобіль</h3>
+            <div id="pasteHint" class="paste-hint">💡 Вставте дані з букмарклета сюди!</div>
+            <p style="font-size: 12px; color: #7f8c8d; margin: 0 0 10px 0;">
+                💡 Підказка: Скористайтесь букмарклетом на сторінці mobile.de або просто вставте посилання/дані в перше поле
+            </p>
             <div class="form-group">
-                <input type="text" id="newCarBrand" class="form-input" placeholder="Марка/Модель" required>
+                <input type="text" id="newCarBrand" class="form-input" placeholder="Марка/Модель або вставте дані з букмарклета" required>
                 <input type="text" id="newCarType" class="form-input" placeholder="Тип двигуна" value="Плагін-гібрид">
             </div>
             <div class="form-group">
@@ -430,6 +629,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>✓</th>
                     <th>№</th>
                     <th>Марка/Модель</th>
                     <th>Тип двигуна</th>
@@ -445,6 +645,50 @@
             <tbody id="carTable">
             </tbody>
         </table>
+        
+        <div class="stats-panel" id="statsPanel">
+            <div class="stat-item">
+                <span>🚗 Всього:</span>
+                <span class="stat-number" id="statTotal">0</span>
+            </div>
+            <div class="stat-item">
+                <span>🏆 Топ пріоритет:</span>
+                <span class="stat-number" id="statPriority" style="color: #9b59b6;">0</span>
+            </div>
+            <div class="stat-item">
+                <span>👍 Цікаво:</span>
+                <span class="stat-number" id="statInteresting" style="color: #27ae60;">0</span>
+            </div>
+            <div class="stat-item">
+                <span>👎 Не цікаво:</span>
+                <span class="stat-number" id="statNotInteresting" style="color: #7f8c8d;">0</span>
+            </div>
+            <div class="stat-item">
+                <span>🤔 Не оцінено:</span>
+                <span class="stat-number" id="statNeutral">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальне вікно порівняння -->
+    <div class="comparison-modal" id="comparisonModal">
+        <div class="comparison-content">
+            <span class="comparison-close" onclick="closeComparison()">&times;</span>
+            <h2>🔍 Порівняння обраних автомобілів</h2>
+            <div id="comparisonTableContainer"></div>
+        </div>
+    </div>
+
+    <!-- Темплейти коментарів -->
+    <div class="comment-templates" id="commentTemplates">
+        <div class="template-item" onclick="applyTemplate('Гарне співвідношення ціна/якість')">💰 Гарне співвідношення ціна/якість</div>
+        <div class="template-item" onclick="applyTemplate('Занадто великий пробіг')">📏 Занадто великий пробіг</div>
+        <div class="template-item" onclick="applyTemplate('Ідеальна комплектація')">✨ Ідеальна комплектація</div>
+        <div class="template-item" onclick="applyTemplate('Потрібна додаткова перевірка')">🔍 Потрібна додаткова перевірка</div>
+        <div class="template-item" onclick="applyTemplate('Завищена ціна')">💸 Завищена ціна</div>
+        <div class="template-item" onclick="applyTemplate('Підходить для сім\'ї')">👨‍👩‍👧‍👦 Підходить для сім'ї</div>
+        <div class="template-item" onclick="applyTemplate('Економічний варіант')">⚡ Економічний варіант</div>
+        <div class="template-item" onclick="applyTemplate('Преміум сегмент')">🏆 Преміум сегмент</div>
     </div>
 
     <!-- Firebase SDK -->
@@ -627,7 +871,9 @@
         // Змінні для збереження оцінок та коментарів
         let carRatings = {};
         let carComments = {};
+        let selectedCars = new Set();
         let isFirebaseReady = false;
+        let currentCommentInput = null;
 
         // Чекаємо готовність Firebase
         function waitForFirebase() {
@@ -730,6 +976,7 @@
                         if (data.carComments) carComments = data.carComments;
                         
                         generateTable();
+                        updateStats();
                         
                         const statusElement = document.getElementById('syncStatus');
                         if (statusElement) {
@@ -841,6 +1088,14 @@
             }
         }
 
+        // Показати/приховати інструкцію букмарклета
+        function toggleBookmarkletInfo() {
+            const info = document.getElementById('bookmarkletInfo');
+            if (info) {
+                info.classList.toggle('show');
+            }
+        }
+
         // Показати/приховати форму додавання
         function toggleAddForm() {
             const form = document.getElementById('addCarForm');
@@ -849,7 +1104,19 @@
                 
                 if (form.classList.contains('show')) {
                     const brandInput = document.getElementById('newCarBrand');
-                    if (brandInput) brandInput.focus();
+                    if (brandInput) {
+                        brandInput.focus();
+                        // Показати підказку
+                        const hint = document.getElementById('pasteHint');
+                        if (hint) {
+                            hint.style.display = 'block';
+                            hint.style.left = brandInput.offsetLeft + 'px';
+                            hint.style.top = (brandInput.offsetTop - 35) + 'px';
+                            setTimeout(() => {
+                                hint.style.display = 'none';
+                            }, 3000);
+                        }
+                    }
                 } else {
                     // Очистити форму
                     const inputs = ['newCarBrand', 'newCarMileage', 'newCarPrice', 'newCarFeatures', 'newCarUrl'];
@@ -861,6 +1128,63 @@
                     if (typeInput) typeInput.value = 'Плагін-гібрид';
                 }
             }
+        }
+
+        // Розумна вставка даних
+        function smartPasteHandler() {
+            const brandInput = document.getElementById('newCarBrand');
+            const priceInput = document.getElementById('newCarPrice');
+            const mileageInput = document.getElementById('newCarMileage');
+            const featuresInput = document.getElementById('newCarFeatures');
+            const urlInput = document.getElementById('newCarUrl');
+            
+            // Слухаємо подію вставки на полі бренду
+            brandInput?.addEventListener('paste', async (e) => {
+                e.preventDefault();
+                const text = e.clipboardData.getData('text');
+                
+                // Шукаємо патерни в тексті
+                const lines = text.split('\n');
+                let foundData = false;
+                
+                lines.forEach(line => {
+                    if (line.includes('🚗')) {
+                        brandInput.value = line.replace('🚗', '').trim();
+                        foundData = true;
+                    } else if (line.includes('💶')) {
+                        priceInput.value = line.replace('💶', '').trim();
+                        foundData = true;
+                    } else if (line.includes('📏')) {
+                        mileageInput.value = line.replace('📏', '').trim();
+                        foundData = true;
+                    } else if (line.includes('✨')) {
+                        featuresInput.value = line.replace('✨', '').trim();
+                        foundData = true;
+                    } else if (line.includes('🔗') || line.includes('mobile.de')) {
+                        urlInput.value = line.replace('🔗', '').trim();
+                        foundData = true;
+                    }
+                });
+                
+                // Якщо знайдені дані з букмарклета
+                if (foundData) {
+                    // Анімація успіху
+                    brandInput.style.borderColor = '#27ae60';
+                    brandInput.style.boxShadow = '0 0 10px rgba(39, 174, 96, 0.5)';
+                    setTimeout(() => {
+                        brandInput.style.borderColor = '';
+                        brandInput.style.boxShadow = '';
+                    }, 2000);
+                } else if (text.includes('mobile.de')) {
+                    // Якщо це просто URL
+                    urlInput.value = text.trim();
+                    brandInput.focus();
+                    alert('📌 URL вставлено! Заповніть інші поля вручну або скористайтесь букмарклетом на сторінці оголошення.');
+                } else {
+                    // Якщо це звичайний текст
+                    brandInput.value = text.trim();
+                }
+            });
         }
 
         // Додати новий автомобіль
@@ -894,6 +1218,7 @@
             carsData.push(newCar);
             await autoSave();
             generateTable();
+            updateStats();
             toggleAddForm();
         }
 
@@ -903,8 +1228,11 @@
                 carsData = carsData.filter(car => car.id !== carId);
                 delete carRatings[carId];
                 delete carComments[carId];
+                selectedCars.delete(carId);
                 await autoSave();
                 generateTable();
+                updateStats();
+                updateCompareButton();
             }
         }
 
@@ -928,6 +1256,7 @@
             
             await autoSave();
             updateRatingDisplay(carId);
+            updateStats();
         }
 
         // Оновлення коментаря з затримкою
@@ -945,6 +1274,47 @@
                 await autoSave();
             }, 1000); // Зберігаємо через 1 секунду після останнього введення
         }
+
+        // Темплейти коментарів
+        function showCommentTemplates(textarea) {
+            currentCommentInput = textarea;
+            const templates = document.getElementById('commentTemplates');
+            const rect = textarea.getBoundingClientRect();
+            templates.style.left = rect.left + 'px';
+            templates.style.top = (rect.bottom + 5) + 'px';
+            templates.classList.add('show');
+        }
+
+        function hideCommentTemplates() {
+            const templates = document.getElementById('commentTemplates');
+            templates.classList.remove('show');
+        }
+
+        function applyTemplate(template) {
+            if (currentCommentInput) {
+                const carId = currentCommentInput.dataset.carId;
+                const currentValue = currentCommentInput.value;
+                if (currentValue) {
+                    currentCommentInput.value = currentValue + '\n' + template;
+                } else {
+                    currentCommentInput.value = template;
+                }
+                updateComment(carId, currentCommentInput.value);
+                hideCommentTemplates();
+            }
+        }
+
+        // Закрити темплейти при кліку поза ними
+        document.addEventListener('click', (e) => {
+            const templates = document.getElementById('commentTemplates');
+            const isTextarea = e.target.classList.contains('comment-input');
+            const isTemplateBtn = e.target.classList.contains('template-btn');
+            const isTemplate = e.target.closest('.comment-templates');
+            
+            if (!isTextarea && !isTemplateBtn && !isTemplate) {
+                hideCommentTemplates();
+            }
+        });
 
         // Відновлення початкових даних
         async function resetToDefaults() {
@@ -1090,6 +1460,7 @@
 
                 await autoSave();
                 generateTable();
+                updateStats();
                 
                 // Показати повідомлення
                 const btn = event.target;
@@ -1130,6 +1501,125 @@
             setTimeout(() => {
                 btn.textContent = originalText;
             }, 2000);
+        }
+
+        // Обробка вибору авто для порівняння
+        function toggleCarSelection(carId) {
+            if (selectedCars.has(carId)) {
+                selectedCars.delete(carId);
+            } else {
+                selectedCars.add(carId);
+            }
+            updateCompareButton();
+        }
+
+        function updateCompareButton() {
+            const btn = document.getElementById('compareBtn');
+            if (btn) {
+                btn.textContent = `🔍 Порівняти (${selectedCars.size})`;
+                btn.disabled = selectedCars.size < 2;
+                btn.style.opacity = selectedCars.size < 2 ? '0.6' : '1';
+            }
+        }
+
+        // Показати порівняння
+        function showComparison() {
+            if (selectedCars.size < 2) {
+                alert('Оберіть принаймні 2 автомобілі для порівняння');
+                return;
+            }
+
+            const modal = document.getElementById('comparisonModal');
+            const container = document.getElementById('comparisonTableContainer');
+            
+            // Отримати обрані авто
+            const selectedCarsData = carsData.filter(car => selectedCars.has(car.id));
+            
+            // Побудувати таблицю порівняння
+            let html = '<table class="comparison-table">';
+            
+            // Заголовок з назвами авто
+            html += '<tr><th>Параметр</th>';
+            selectedCarsData.forEach(car => {
+                html += `<th>${car.brand}</th>`;
+            });
+            html += '</tr>';
+            
+            // Порівняння параметрів
+            const parameters = [
+                { key: 'type', name: 'Тип двигуна' },
+                { key: 'mileage', name: 'Пробіг' },
+                { key: 'price', name: 'Ціна' },
+                { key: 'features', name: 'Особливості' }
+            ];
+            
+            parameters.forEach(param => {
+                html += `<tr><td><strong>${param.name}</strong></td>`;
+                selectedCarsData.forEach(car => {
+                    html += `<td>${car[param.key] || '-'}</td>`;
+                });
+                html += '</tr>';
+            });
+            
+            // Оцінки
+            html += '<tr><td><strong>Оцінка</strong></td>';
+            selectedCarsData.forEach(car => {
+                const rating = carRatings[car.id];
+                let ratingText = '🤔 Не оцінено';
+                let highlightClass = '';
+                
+                if (rating === 'priority') {
+                    ratingText = '🏆 ТОП ПРІОРИТЕТ';
+                    highlightClass = 'comparison-highlight';
+                } else if (rating === 'interesting') {
+                    ratingText = '👍 Цікаво';
+                } else if (rating === 'not-interesting') {
+                    ratingText = '👎 Не цікаво';
+                }
+                
+                html += `<td class="${highlightClass}">${ratingText}</td>`;
+            });
+            html += '</tr>';
+            
+            // Коментарі
+            html += '<tr><td><strong>Коментарі</strong></td>';
+            selectedCarsData.forEach(car => {
+                const comment = carComments[car.id] || 'Немає коментарів';
+                html += `<td>${comment}</td>`;
+            });
+            html += '</tr>';
+            
+            // Посилання
+            html += '<tr><td><strong>Посилання</strong></td>';
+            selectedCarsData.forEach(car => {
+                html += `<td><a href="${car.url}" target="_blank" style="color: #3498db;">Переглянути</a></td>`;
+            });
+            html += '</tr>';
+            
+            html += '</table>';
+            
+            container.innerHTML = html;
+            modal.classList.add('show');
+        }
+
+        function closeComparison() {
+            const modal = document.getElementById('comparisonModal');
+            modal.classList.remove('show');
+        }
+
+        // Оновлення статистики
+        function updateStats() {
+            const total = carsData.length;
+            const priority = Object.values(carRatings).filter(r => r === 'priority').length;
+            const interesting = Object.values(carRatings).filter(r => r === 'interesting').length;
+            const notInteresting = Object.values(carRatings).filter(r => r === 'not-interesting').length;
+            const neutral = total - priority - interesting - notInteresting;
+            
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statPriority').textContent = priority;
+            document.getElementById('statInteresting').textContent = interesting;
+            document.getElementById('statNotInteresting').textContent = notInteresting;
+            document.getElementById('statNeutral').textContent = neutral;
         }
 
         // Оновлення відображення оцінки
@@ -1193,9 +1683,17 @@
 
                     const rating = carRatings[car.id] || '';
                     const comment = carComments[car.id] || '';
+                    const isSelected = selectedCars.has(car.id);
 
                     const row = document.createElement('tr');
                     row.innerHTML = `
+                        <td>
+                            <input type="checkbox" 
+                                class="select-checkbox" 
+                                ${isSelected ? 'checked' : ''}
+                                onchange="toggleCarSelection('${car.id}')"
+                            >
+                        </td>
                         <td>${index + 1}</td>
                         <td>
                             <input 
@@ -1251,10 +1749,12 @@
                             <span class="status-indicator status-neutral" id="status-${car.id}">🤔 Не оцінено</span>
                         </td>
                         <td class="comment-cell">
+                            <button class="template-btn" onclick="showCommentTemplates(this.nextElementSibling)">📝</button>
                             <textarea 
                                 class="comment-input" 
                                 placeholder="Додайте свій коментар..."
                                 oninput="updateComment('${car.id}', this.value)"
+                                data-car-id="${car.id}"
                             >${comment.replace(/"/g, '&quot;')}</textarea>
                         </td>
                         <td class="link-cell">
@@ -1284,12 +1784,17 @@
             
             // Спочатку показуємо початкові дані
             generateTable();
+            updateStats();
+            
+            // Ініціалізуємо обробник вставки
+            smartPasteHandler();
             
             // Потім завантажуємо збережені дані
             await loadSavedData();
             
             // Оновлюємо таблицю після завантаження
             generateTable();
+            updateStats();
             
             console.log('✅ Додаток ініціалізовано успішно з Firebase підтримкою');
             console.log('Фінальна кількість автомобілів:', carsData.length);

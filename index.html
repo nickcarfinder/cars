@@ -599,8 +599,8 @@
             <button class="btn clear-btn" onclick="clearAllData()">🗑️ Очистити все</button>
             <button class="btn add-btn" onclick="toggleAddForm()">➕ Додати авто</button>
             <button class="btn compare-btn" onclick="showComparison()" id="compareBtn">🔍 Порівняти (0)</button>
-            <button class="btn" style="background: #8e44ad; color: white;" onclick="sortByPriority()">🏆 Сортувати за пріоритетом</button>
-            <button class="btn" style="background: #17a2b8; color: white;" onclick="resetToDefaults()">🔄 Відновити початкові авто</button>
+            <button class="btn" style="background: #8e44ad; color: white;" onclick="sortByPriority(event)">🏆 Сортувати за пріоритетом</button>
+            <button class="btn" style="background: #17a2b8; color: white;" onclick="resetToDefaults(event)">🔄 Відновити початкові авто</button>
             <button class="btn" style="background: #f39c12; color: white;" onclick="toggleBookmarkletInfo()">📌 Букмарклет</button>
             <span class="info-text">
                 ☁️ Автоматична синхронізація з Firebase + localStorage backup
@@ -629,7 +629,7 @@
                 <li>Вставте цей код і натисніть Enter:</li>
             </ol>
             <pre style="background: #2c3e50; color: #ecf0f1; padding: 10px; border-radius: 5px; font-size: 12px; overflow-x: auto; position: relative;">
-<button class="copy-code-btn" onclick="copyConsoleCode()" style="position: absolute; top: 5px; right: 5px; background: #3498db; color: white; border: none; padding: 4px 8px; border-radius: 3px; font-size: 11px; cursor: pointer;">📋 Копіювати</button>(function(){var d={};d.brand=document.querySelector('h1')?.textContent?.trim()||'';d.price=document.querySelector('[data-testid="prime-price"]')?.textContent?.trim()||'';d.mileage=Array.from(document.querySelectorAll('.u-block')).find(el=>el.textContent.includes('km'))?.textContent?.trim()||'';var f=[];document.querySelectorAll('[data-testid="basic-details-item"]').forEach(el=>{var t=el.textContent.trim();if(t&&!t.includes('km')&&!t.includes('€'))f.push(t);});d.features=f.slice(0,3).join(', ');d.url=window.location.href;var o='🚗 '+d.brand+'\n💶 '+d.price+'\n📏 '+d.mileage+'\n✨ '+d.features+'\n🔗 '+d.url;navigator.clipboard.writeText(o);console.log('✅ Скопійовано!\n\n'+o);})();</pre>
+<button class="copy-code-btn" onclick="copyConsoleCode(event)" style="position: absolute; top: 5px; right: 5px; background: #3498db; color: white; border: none; padding: 4px 8px; border-radius: 3px; font-size: 11px; cursor: pointer;">📋 Копіювати</button>(function(){var d={};d.brand=document.querySelector('h1')?.textContent?.trim()||'';d.price=document.querySelector('[data-testid="prime-price"]')?.textContent?.trim()||'';d.mileage=Array.from(document.querySelectorAll('.u-block')).find(el=>el.textContent.includes('km'))?.textContent?.trim()||'';var f=[];document.querySelectorAll('[data-testid="basic-details-item"]').forEach(el=>{var t=el.textContent.trim();if(t&&!t.includes('km')&&!t.includes('€'))f.push(t);});d.features=f.slice(0,3).join(', ');d.url=window.location.href;var o='🚗 '+d.brand+'\n💶 '+d.price+'\n📏 '+d.mileage+'\n✨ '+d.features+'\n🔗 '+d.url;navigator.clipboard.writeText(o);console.log('✅ Скопійовано!\n\n'+o);})();</pre>
             
             <h4>Варіант 3: Букмарклет (для інших браузерів)</h4>
             <p>Перетягніть цю кнопку в панель закладок:</p>
@@ -1392,7 +1392,7 @@
         });
 
         // Копіювати код для консолі
-        function copyConsoleCode() {
+        function copyConsoleCode(event) {
             const code = `(function(){var d={};d.brand=document.querySelector('h1')?.textContent?.trim()||'';d.price=document.querySelector('[data-testid="prime-price"]')?.textContent?.trim()||'';d.mileage=Array.from(document.querySelectorAll('.u-block')).find(el=>el.textContent.includes('km'))?.textContent?.trim()||'';var f=[];document.querySelectorAll('[data-testid="basic-details-item"]').forEach(el=>{var t=el.textContent.trim();if(t&&!t.includes('km')&&!t.includes('€'))f.push(t);});d.features=f.slice(0,3).join(', ');d.url=window.location.href;var o='🚗 '+d.brand+'\\n💶 '+d.price+'\\n📏 '+d.mileage+'\\n✨ '+d.features+'\\n🔗 '+d.url;navigator.clipboard.writeText(o);console.log('✅ Скопійовано!\\n\\n'+o);})();`;
             
             navigator.clipboard.writeText(code).then(() => {
@@ -1408,7 +1408,7 @@
         }
 
         // Відновлення початкових даних
-        async function resetToDefaults() {
+        async function resetToDefaults(event) {
             if (confirm('Відновити початкові 15 автомобілів? (Ваші додані авто будуть видалені, але оцінки та коментарі збережуться)')) {
                 // Відновлюємо початковий масив автомобілів
                 carsData = [
@@ -1566,7 +1566,7 @@
         }
 
         // Сортування за пріоритетом
-        async function sortByPriority() {
+        async function sortByPriority(event) {
             carsData.sort((a, b) => {
                 const ratingA = carRatings[a.id] || 'none';
                 const ratingB = carRatings[b.id] || 'none';

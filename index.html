@@ -1286,6 +1286,17 @@
             toggleAddForm();
         }
 
+        // Додати авто з розширення Chrome
+        async function addCarFromExtension(car) {
+            if (!car.id) {
+                car.id = 'ext_' + Date.now();
+            }
+            carsData.push(car);
+            await autoSave();
+            generateTable();
+            updateStats();
+        }
+
         // Видалити автомобіль
         async function deleteCar(carId) {
             if (confirm('Ви впевнені, що хочете видалити цей автомобіль?')) {

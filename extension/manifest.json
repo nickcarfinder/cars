@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Mobile.de Copier",
+  "version": "1.0",
+  "description": "Adds a button to mobile.de listings to copy data into the car table.",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://*.mobile.de/*", "http://*.mobile.de/*"],
+      "js": ["mobile.js"]
+    },
+    {
+      "matches": ["*://*/index.html"],
+      "js": ["table.js"]
+    }
+  ]
+}

@@ -1292,6 +1292,7 @@
                 car.id = 'ext_' + Date.now();
             }
             carsData.push(car);
+            console.log('addCarFromExtension', car);
             await autoSave();
             generateTable();
             updateStats();

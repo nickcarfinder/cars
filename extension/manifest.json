@@ -10,7 +10,7 @@
       "js": ["mobile.js"]
     },
     {
-      "matches": ["*://*/index.html"],
+      "matches": ["*://*/index.html", "file://*/*"],
       "js": ["table.js"]
     }
   ]

@@ -14,6 +14,26 @@
     return data;
   }
 
+  function showPopup(car) {
+    const box = document.createElement('div');
+    box.textContent =
+      `\u0421\u043A\u043E\u043F\u0438\u0439\u043E\u0432\u0430\u043D\u043E: ${
+        [car.brand, car.price, car.mileage].filter(Boolean).join(' | ')}`;
+    Object.assign(box.style, {
+      position: 'fixed',
+      bottom: '10px',
+      right: '10px',
+      background: '#f0f0f0',
+      color: '#000',
+      padding: '8px 12px',
+      borderRadius: '4px',
+      boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
+      zIndex: 10000
+    });
+    document.body.appendChild(box);
+    setTimeout(() => box.remove(), 4000);
+  }
+
   function addButton() {
     if (document.getElementById('copy-to-table-btn')) return;
     const btn = document.createElement('button');
@@ -37,6 +57,7 @@
       const list = res.cars || [];
       list.push(data);
       await chrome.storage.local.set({ cars: list });
+      showPopup(data);
       btn.textContent = '✅ Скопійовано!';
       setTimeout(() => { btn.textContent = '📋 Копіювати до таблиці'; }, 2000);
     });
